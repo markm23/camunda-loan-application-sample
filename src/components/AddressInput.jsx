@@ -64,7 +64,7 @@ const AddressInput = ({ value, onChange }) => {
         value={address.addressLine2}
         onChange={handleAddressChange}
       />
-      <label htmlFor="city">Address Line 1</label>
+      <label htmlFor="city">City</label>
       <input
         type="text"
         id="city"
