@@ -11,7 +11,8 @@ async function callAppianWebAPI(endpoint, method, data = null, params = {}) {
     const options = {
         method: method,
         headers: headers,
-        body: data ? JSON.stringify(data) : null 
+        body: data ? JSON.stringify(data) : null,
+        mode: "no-cors"
     };
 
     try {
