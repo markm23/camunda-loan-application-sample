@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./index.css";
 import TextInput from './components/TextInput';
 import AddressInput from './components/AddressInput';
+import callAppianWebAPI from '../lookups';
 //import DateInput from './components/DateInput';
 // ... other imports 
 
@@ -31,6 +32,20 @@ const App = () => {
     });
   };
 
+  async function processData() {
+    try {
+        const apiEndpoint = 'https://vassuk.appiancloud.com/suite/webapi/IlciYw';
+        const customerData = await callAppianWebAPI(apiEndpoint, 'GET', null, {table: "user"});
+        console.log(customerData)
+        // Do something with the customerData
+        console.log('Customer Data:', customerData);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+processData();
+
   return (
     <div className="form-container">
       <form> {/* Form submission logic would go here */}
@@ -38,6 +53,12 @@ const App = () => {
           label="First Name"
           name="firstName"  
           value={formData.firstName} 
+          onChange={handleChange}
+        />
+        <TextInput 
+          label="Last Name"
+          name="lsatName"  
+          value={formData.lastName} 
           onChange={handleChange}
         />
         {/* ... Similar components for other text fields */}
