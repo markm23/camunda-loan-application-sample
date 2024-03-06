@@ -1,4 +1,5 @@
 import { Amplify, API } from 'aws-amplify'; // Assuming correct import syntax
+import { get } from 'aws-amplify/api'; 
 import amplifyconfig from '../amplifyconfiguration.json'; // Ensure this exists
 
 Amplify.configure(amplifyconfig);
@@ -20,7 +21,11 @@ async function callAppianWebAPI(endpoint, method, data = null, params = {}) {
     };
 
     try {
-        const response = await API[method.toLowerCase()](apiName, path, options); 
+        const response = await get(
+            apiName,
+            path,
+            options
+        ); 
         return response; // Return the raw API response
     } catch (error) {
         console.error('Error calling Appian Web API:', error);
