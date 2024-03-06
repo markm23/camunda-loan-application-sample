@@ -11,6 +11,7 @@ function App() {
       </header>
       <main>
         <h2>Time to get started!</h2>
+        <p>Wagwarn</p>
       </main>
     </div>
   );
