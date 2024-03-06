@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./index.css";
 import TextInput from './components/TextInput';
 import AddressInput from './components/AddressInput';
-import callAppianWebAPI from '../lookups';
+import callAppianWebAPI from '../data/lookups';
 //import DateInput from './components/DateInput';
 // ... other imports 
 
