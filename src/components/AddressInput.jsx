@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { europeanCountries, countryRegions } from '../../data';
+import { europeanCountries, countryRegions } from '../../data/data.js';
 
 const AddressInput = ({ value, onChange }) => {
   const [address, setAddress] = useState(value);
