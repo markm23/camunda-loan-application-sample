@@ -1,5 +1,5 @@
 import { API } from 'aws-amplify'; // Assuming correct import syntax
-import amplifyconfig from './amplifyconfiguration.json'; // Ensure this exists
+import amplifyconfig from '../amplifyconfiguration.json'; // Ensure this exists
 
 Amplify.configure(amplifyconfig);
 
