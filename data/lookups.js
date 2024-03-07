@@ -17,10 +17,12 @@ async function callAppianWebAPI(endpoint, method, data = null, params = {}) {
             'Appian-API-Key': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3MjVkZjMwZC0xYjhjLTQyYmItYmQ5OC1jNTY5ZDIzNjExOTIifQ.TvWTZY-PI5-GPRK9GAyYXXg4NDsNrQ_BA4OYqzaQXS0', 
             'Content-Type': 'application/json' 
         },
-        queryStringParameters: queryParams, // For GET parameters
-        mode: "no-cors"
+        //queryStringParameters: queryParams, // For GET parameters
+        //mode: "no-cors"
     };
-
+    console.log(headers);
+    console.log(apiUrl);
+    console.log(queryParams)
     try {
         const response = await fetch(apiUrl, options)
         return response; // Return the raw API response
