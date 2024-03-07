@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "getLookups",
+            "getAppianLookups",
             {
               "Fn::Join": [
                 "",
                 [
-                  "getLookups",
+                  "getAppianLookups",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "camundaloanapplicatiLambdaRoleb654e430",
+            "camundaloanapplicatiLambdaRolef426354c",
             {
               "Fn::Join": [
                 "",
                 [
-                  "camundaloanapplicatiLambdaRoleb654e430",
+                  "camundaloanapplicatiLambdaRolef426354c",
                   "-",
                   {
                     "Ref": "env"

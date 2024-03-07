@@ -1,6 +1,6 @@
 {
   "api": {
-    "apiGetLookups": {
+    "getAppianLookups": {
       "dependsOn": [
         {
           "attributes": [
@@ -8,21 +8,7 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "todoGetLookups"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    },
-    "ccsGetLookups": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "getLookups"
+          "resourceName": "getAppianLookups"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -30,18 +16,29 @@
     }
   },
   "function": {
-    "getLookups": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "todoGetLookups": {
+    "getAppianLookups": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
+    "AMPLIFY_function_getAppianLookups_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getAppianLookups"
+        }
+      ]
+    },
+    "AMPLIFY_function_getAppianLookups_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getAppianLookups"
+        }
+      ]
+    },
     "AMPLIFY_function_getLookups_deploymentBucketName": {
       "usedBy": [
         {

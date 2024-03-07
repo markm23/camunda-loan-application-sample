@@ -1,9 +1,9 @@
 {
   "version": 1,
   "paths": {
-    "/todo": {
-      "name": "/todo",
-      "lambdaFunction": "todoGetLookups",
+    "/IlciYw": {
+      "name": "/IlciYw",
+      "lambdaFunction": "getAppianLookups",
       "permissions": {
         "setting": "open"
       }
