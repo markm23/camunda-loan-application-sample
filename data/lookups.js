@@ -15,7 +15,10 @@ async function callAppianWebAPI(endpoint, method, data = null, params = {}) {
     const options = {
         headers: {
             'Appian-API-Key': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3MjVkZjMwZC0xYjhjLTQyYmItYmQ5OC1jNTY5ZDIzNjExOTIifQ.TvWTZY-PI5-GPRK9GAyYXXg4NDsNrQ_BA4OYqzaQXS0', 
-            'Content-Type': 'application/json' 
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Headers':  'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+            'Access-Control-Allow-Methods': '*',
+            'Access-Control-Allow-Origin': '*'
         },
         //queryStringParameters: queryParams, // For GET parameters
         // mode: "no-cors"
