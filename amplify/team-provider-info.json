@@ -16,10 +16,15 @@
         "todoGetLookups": {
           "deploymentBucketName": "amplify-amplify5a48791fea654-staging-152759-deployment",
           "s3Key": "amplify-builds/todoGetLookups-555236794e5454422b52-build.zip"
+        },
+        "getLookups": {
+          "deploymentBucketName": "amplify-amplify5a48791fea654-staging-152759-deployment",
+          "s3Key": "amplify-builds/getLookups-54574867423464744f36-build.zip"
         }
       },
       "api": {
-        "apiGetLookups": {}
+        "apiGetLookups": {},
+        "ccsGetLookups": {}
       }
     }
   }
