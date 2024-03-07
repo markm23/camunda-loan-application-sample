@@ -34,7 +34,7 @@ const App = () => {
 
   async function processData() {
     try {
-        const apiEndpoint = 'https://bpklz2i360.execute-api.eu-west-2.amazonaws.com/staging';
+        const apiEndpoint = 'https://bpklz2i360.execute-api.eu-west-2.amazonaws.com/dev';
         const customerData = await callAppianWebAPI(apiEndpoint, 'GET', null, {table: "user"});
         console.log(customerData)
         // Do something with the customerData

@@ -18,7 +18,6 @@ async function callAppianWebAPI(endpoint, method, data = null, params = {}) {
             'Content-Type': 'application/json' 
         },
         queryStringParameters: queryParams, // For GET parameters
-        mode: "no-cors"
     };
 
     try {
