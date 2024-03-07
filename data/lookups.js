@@ -21,11 +21,7 @@ async function callAppianWebAPI(endpoint, method, data = null, params = {}) {
     };
 
     try {
-        const response = await get(
-            apiName,
-            path,
-            options
-        ); 
+        const response = await fetch(apiUrl, options)
         return response; // Return the raw API response
     } catch (error) {
         console.error('Error calling Appian Web API:', error);
