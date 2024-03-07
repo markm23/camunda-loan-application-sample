@@ -9,7 +9,7 @@ async function callAppianWebAPI(endpoint, method, data = null, params = {}) {
     const queryParams = new URLSearchParams(params).toString();
     const path = '/IlciYw'
     const apiUrl = queryParams ? `${endpoint}?${queryParams}` : endpoint; 
-    const apiName = 'Get Lookups';
+    const apiName = 'getAppianLookups';
 
 
     const options = {
