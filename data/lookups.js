@@ -1,8 +1,8 @@
 import { Amplify, API } from 'aws-amplify'; // Assuming correct import syntax
 import { get } from 'aws-amplify/api'; 
-import amplifyconfig from '../amplifyconfiguration.json'; // Ensure this exists
+import awsmobile from '../aws-exports';
 
-Amplify.configure(amplifyconfig);
+Amplify.configure(awsmobile);
 
 async function callAppianWebAPI(endpoint, method, data = null, params = {}) {
     // Construct query parameters
