@@ -1,6 +1,6 @@
 import { Amplify, API } from 'aws-amplify'; // Assuming correct import syntax
 import { get } from 'aws-amplify/api'; 
-import awsmobile from 'aws-exports.js';
+import awsmobile from '../aws-exports';
 
 Amplify.configure(awsmobile);
 
