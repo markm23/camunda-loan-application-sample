@@ -20,7 +20,7 @@ async function callAppianWebAPI(endpoint, method, data = null, params = {}) {
         //queryStringParameters: queryParams, // For GET parameters
         //mode: "no-cors"
     };
-    console.log(headers);
+    console.log(options);
     console.log(apiUrl);
     console.log(queryParams)
     try {
