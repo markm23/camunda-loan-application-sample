@@ -18,14 +18,14 @@ async function callAppianWebAPI(endpoint, method, data = null, params = {}) {
             'Content-Type': 'application/json' 
         },
         //queryStringParameters: queryParams, // For GET parameters
-        mode: "no-cors"
+        // mode: "no-cors"
     };
     console.log(options);
     console.log(apiUrl);
     try {
         const response = await fetch(apiUrl, options)
         return response.json(); // Return the raw API response
-    } catch (error) {
+    } catch (error) {s
         console.error('Error calling Appian Web API:', error);
         throw error; 
     }
