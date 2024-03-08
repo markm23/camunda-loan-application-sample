@@ -56,51 +56,49 @@ const App = () => {
 
   return (
     <div className="form-container">
-      <form>
-        {" "}
-        {/* Form submission logic would go here */}
-        <TextInput
-          label="First Name"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-        />
-        <TextInput
-          label="Last Name"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-        />
-        <div className="form-container">
-          <form>
-            <PhoneInputComponent
-              name="phone"
-              value={formData.phone}
-              onChange={handlePhoneChange}
-            />
-            {/* ...other fields */}
-          </form>
+      <form> {/* Form submission logic would go here */}
+        <div className="form-group"> {/* Column 1 */}
+          <TextInput
+            label="First Name"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+          />
+          <TextInput
+            label="Last Name"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+          />
+          <PhoneInputComponent
+            name="phone"
+            value={formData.phone}
+            onChange={handlePhoneChange}
+          />
+        </div>    
+        <div className="form-group"> {/* Column 2 */}
+          <AddressInput
+            value={formData.address}
+            onChange={(address) => setFormData({ ...formData, address })}
+          />
         </div>
-        <AddressInput
-          value={formData.address}
-          onChange={(address) => setFormData({ ...formData, address })}
-        />
-        {/* ... other fields */}
-        <button type="submit">Submit</button>
-        <DropdownInput
-          label="Employment Type"
-          name="employmentType"
-          value={formData.employmentType || ""}
-          options={employmentTypeLookup}
-          onChange={handleChange}
-        />
-        <DropdownInput
-          label="Housing Status"
-          name="housingStatus"
-          value={formData.housingStatus || ""}
-          options={housingStatusLookup}
-          onChange={handleChange}
-        />
+        <div className="form-group"> {/* Column 3  */}
+          <DropdownInput
+            label="Employment Type"
+            name="employmentType"
+            value={formData.employmentType || ""}
+            options={employmentTypeLookup}
+            onChange={handleChange}
+          />
+          <DropdownInput
+            label="Housing Status"
+            name="housingStatus"
+            value={formData.housingStatus || ""}
+            options={housingStatusLookup}
+            onChange={handleChange}
+          />
+        </div>
+       <button type="submit">Submit</button> 
       </form>
     </div>
   );
