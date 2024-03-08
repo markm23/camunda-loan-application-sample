@@ -47,10 +47,10 @@ header p {
   font-family: "Roboto Condensed", sans-serif;
 }
 
-main {
-  width: 90%;
-  max-width: 100rem;
-  margin: auto;
+main { 
+  width: 50%;  /* Set the width of the form to approximately half the screen */
+  max-width: 200rem; /* Adjust maxWidth if needed for a specific limit */
+  margin: 30px auto; /* Center the form horizontally and add a top/bottom margin */
 }
 
 #core-concepts {
