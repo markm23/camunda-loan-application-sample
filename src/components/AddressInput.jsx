@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { europeanCountries, countryRegions } from '../../data/data.js';
+import React, { useState, useEffect } from "react";
+import DropdownInput from "./DropdownInput.jsx";
+import { europeanCountries, countryRegions } from "../../data/data.js";
 
 const AddressInput = ({ value, onChange }) => {
   const [address, setAddress] = useState(value);
@@ -22,7 +23,7 @@ const AddressInput = ({ value, onChange }) => {
       country: countryCode,
       region: null, // Reset region when country changes
     });
-    onChange(address); 
+    onChange(address);
   };
 
   const handleRegionChange = (event) => {
@@ -45,7 +46,7 @@ const AddressInput = ({ value, onChange }) => {
   const getFullAddress = () => {
     return `${address.addressLine1}, ${address.addressLine2}, ${address.city}, ${address.region}, ${address.country}, ${address.postCode}`;
   };
-  
+
   return (
     <div className="address-input">
       <label htmlFor="addressLine1">Address Line 1</label>
@@ -72,35 +73,22 @@ const AddressInput = ({ value, onChange }) => {
         value={address.city}
         onChange={handleAddressChange}
       />
-
-      <label htmlFor="country">Country</label>
-      <select id="country" name="country" value={address.country || ''} onChange={handleCountryChange}>
-        <option value="">Select Country</option>
-        {countries.map((country) => (
-          <option key={country.code} value={country.code}>
-            {country.name}
-          </option>
-        ))}
-      </select>
-
-      <label htmlFor="region">Region</label>
-      <select
-        id="region"
+      <DropdownInput
+        label="Country"
+        name="country"
+        value={address.country || ""}
+        options={europeanCountries}
+        onChange={handleCountryChange}
+      />
+      <DropdownInput
+        label="Region"
         name="region"
-        value={address.region || ''}
+        value={address.region || ""}
+        options={regions}
         onChange={handleRegionChange}
         disabled={!selectedCountry}
-      >
-        <option value="">Select Region</option>
-        {regions.map((region) => (
-          <option key={region} value={region}>
-            {region}
-          </option>
-        ))}
-      </select>
-      <div className="full-address">
-        Full Address: {getFullAddress()}
-      </div>
+      />
+      <div className="full-address">Full Address: {getFullAddress()}</div>
       {/* ... postCode field */}
     </div>
   );

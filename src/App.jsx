@@ -1,27 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "./index.css";
-import TextInput from './components/TextInput';
-import AddressInput from './components/AddressInput';
-import callAppianWebAPI from '../data/lookups';
+import TextInput from "./components/TextInput";
+import AddressInput from "./components/AddressInput";
+import PhoneInputComponent from "./components/PhoneInputComponent";
+import DropdownInput from "./components/DropdownInput";
+import { employmentTypeLookup, housingStatusLookup } from "../data/lookupHardcode";
+//import callAppianWebAPI from '../data/lookups';
 //import DateInput from './components/DateInput';
-// ... other imports 
+// ... other imports
 
 const App = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    dateOfBirth: '',
-    email: '',
-    // ... other fields
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    email: "",
+    phoneNumber: "",
+    employmentType: "",
+    housingStatus: "",
     address: {
-      addressLine1: '',
-      addressLine2: '',
-      country: '',
-      city: '',
-      region: '',
-      postCode: '',
+      addressLine1: "",
+      addressLine2: "",
+      country: "",
+      city: "",
+      region: "",
+      postCode: "",
     },
-    // ... 
+    // ...
   });
 
   // Handle form changes (generic example)
@@ -32,43 +37,70 @@ const App = () => {
     });
   };
 
-  async function processData() {
-    try {
-        const apiEndpoint = 'https://bpklz2i360.execute-api.eu-west-2.amazonaws.com/dev';
-        const customerData = await callAppianWebAPI(apiEndpoint, 'GET', null, {table: "user"});
-        console.log(customerData)
-        // Do something with the customerData
-        console.log('Customer Data:', customerData);
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-}
+  const handlePhoneChange = (value) => {
+    setFormData({ ...formData, phone: value });
+  };
+  //   async function processData() {
+  //     try {
+  //         const apiEndpoint = 'https://bpklz2i360.execute-api.eu-west-2.amazonaws.com/dev';
+  //         const customerData = await callAppianWebAPI(apiEndpoint, 'GET', null, {table: "user"});
+  //         console.log(customerData)
+  //         // Do something with the customerData
+  //         console.log('Customer Data:', customerData);
+  //     } catch (error) {
+  //         console.error('Error fetching data:', error);
+  //     }
+  // }
 
-processData();
+  // processData();
 
   return (
     <div className="form-container">
-      <form> {/* Form submission logic would go here */}
-        <TextInput 
+      <form>
+        {" "}
+        {/* Form submission logic would go here */}
+        <TextInput
           label="First Name"
-          name="firstName"  
-          value={formData.firstName} 
+          name="firstName"
+          value={formData.firstName}
           onChange={handleChange}
         />
-        <TextInput 
+        <TextInput
           label="Last Name"
-          name="lsatName"  
-          value={formData.lastName} 
+          name="lastName"
+          value={formData.lastName}
           onChange={handleChange}
         />
-        {/* ... Similar components for other text fields */}
-        {/* Components for Dropdowns */}
+        <div className="form-container">
+          <form>
+            <PhoneInputComponent
+              name="phone"
+              value={formData.phone}
+              onChange={handlePhoneChange}
+            />
+            {/* ...other fields */}
+          </form>
+        </div>
         <AddressInput
           value={formData.address}
           onChange={(address) => setFormData({ ...formData, address })}
         />
-       {/* ... other fields */}
-        <button type="submit">Submit</button> 
+        {/* ... other fields */}
+        <button type="submit">Submit</button>
+        <DropdownInput
+          label="Employment Type"
+          name="employmentType"
+          value={formData.employmentType || ""}
+          options={employmentTypeLookup}
+          onChange={handleChange}
+        />
+        <DropdownInput
+          label="Housing Status"
+          name="housingStatus"
+          value={formData.housingStatus || ""}
+          options={housingStatusLookup}
+          onChange={handleChange}
+        />
       </form>
     </div>
   );
