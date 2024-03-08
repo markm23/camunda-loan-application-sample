@@ -2,7 +2,7 @@ import React from 'react';
 
 const TextInput = ({ label, name, value, onChange }) => {
   return (
-    <div className="form-group">
+    <>
       <label htmlFor={name}>{label}</label>
       <input 
         type="text" 
@@ -11,7 +11,7 @@ const TextInput = ({ label, name, value, onChange }) => {
         value={value} 
         onChange={onChange} 
       />
-    </div>
+    </>
   );
 };
 

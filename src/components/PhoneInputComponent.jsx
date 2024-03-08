@@ -11,7 +11,7 @@ const PhoneInputComponent = ({ name, value, onChange }) => {
   };
 
   return (
-    <div className="form-group">
+    <>
       <label htmlFor={name}>Phone Number</label>
       <PhoneInput
         id={name} 
@@ -20,7 +20,7 @@ const PhoneInputComponent = ({ name, value, onChange }) => {
         value={phone}
         onChange={handleChange}
       />
-    </div>
+    </>
   );
 };
 

@@ -48,7 +48,7 @@ const AddressInput = ({ value, onChange }) => {
   };
 
   return (
-    <div className="address-input">
+    <>
       <label htmlFor="addressLine1">Address Line 1</label>
       <input
         type="text"
@@ -90,7 +90,7 @@ const AddressInput = ({ value, onChange }) => {
       />
       <div className="full-address">Full Address: {getFullAddress()}</div>
       {/* ... postCode field */}
-    </div>
+    </>
   );
 };
 
