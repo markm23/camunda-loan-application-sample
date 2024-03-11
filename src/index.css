@@ -47,11 +47,15 @@ header p {
   font-family: "Roboto Condensed", sans-serif;
 }
 
-main { 
+main {
   width: 50%;  /* Set the width of the form to approximately half the screen */
-  max-width: 200rem; /* Adjust maxWidth if needed for a specific limit */
-  margin: 30px auto; /* Center the form horizontally and add a top/bottom margin */
-}
+  max-width: 250rem; /* Adjust maxWidth if needed for a specific limit */
+
+  /* Flexbox for centering */
+  display: flex;
+  justify-content: center; /* Centers content horizontally */
+  align-items: center; /* Adjust vertical centering if needed */
+} 
 
 #core-concepts {
   padding: 2rem;
@@ -153,4 +157,10 @@ main h2 {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Three equal columns */
   gap: 20px; /* Spacing between columns */
+}
+.form-wrapper { 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
 }

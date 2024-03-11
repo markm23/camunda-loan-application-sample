@@ -11,16 +11,15 @@ const PhoneInputComponent = ({ name, value, onChange }) => {
   };
 
   return (
-    <>
+    <section className="phone-input-container">
       <label htmlFor={name}>Phone Number</label>
       <PhoneInput
-        id={name} 
         name={name}
         placeholder="Enter phone number"
         value={phone}
         onChange={handleChange}
       />
-    </>
+    </section>
   );
 };
 

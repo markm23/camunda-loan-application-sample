@@ -1,0 +1,145 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.phone-input-container {
+  display: flex; /* Enable flexbox */
+  flex-direction: column; /* Optional: Stack elements vertically */
+  align-items: flex-start; /* Optional: Align items to the start */
+}
+
+.phone-input-container input {
+  flex: 1; /* Allow the input to grow and fill available space */
+  max-width: 100%; /* Ensure the input doesn't exceed its container */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.phone-input-container label {
+  flex: 0 0 33.333%; /* Take up exactly one third */
+  margin-right: 10px; /* Adjust spacing as desired */
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    background-color: #213547;
+    color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #7925d3;
+    color: #ffffff;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.file-upload {
+  display: flex; /* Enable flexbox */
+  align-items: center; /* Align items vertically to the center */
+}
+
+.instructions {
+  flex: 1; /* Allow instructions to grow and fill space */
+  padding: 1rem;
+  list-style: disc; /* Bullet point style */
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: flex-end; /* Align to the right */
+  padding: 1rem;
+}
+
+.form-container {
+  display: flex; /* Use flexbox for column layout */
+  gap: 20px; /* Spacing between columns */
+}
+
+.form-column {
+  flex: 0 0 600px; /* Key change: calculate width for 2 columns */
+  display: flex;
+  flex-direction: column; /* Arrange elements vertically */
+  min-width: 600px; /* Ensure minimum width if needed */
+  margin: 10px;
+}
+
+.form-column + .form-column::before {
+  /* Target elements AFTER the 1st column */
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -10px; /* Adjust as needed to align with column edge */
+  border-left: 1px solid #ccc; /* Style the divider line */
+}
+
+.input-line {
+  display: flex; /* Use flexbox for easy alignment */
+  align-items: center; /* Align the label and input vertically */
+  margin-bottom: 10px; /* Add some spacing between input lines */
+}
+
+.input-line label {
+  flex: 0 0 auto; /* Prevent the label from growing or shrinking */
+  margin-right: 10px; /* Add spacing between the label and input */
+}
+
+.input-line input {
+  flex: 1 1 50%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+
+.input-line select {
+  flex: 1 1 50%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
