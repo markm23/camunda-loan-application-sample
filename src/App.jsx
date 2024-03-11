@@ -22,7 +22,36 @@ import FileUpload from "./components/FileUpload";
 //import DateInput from './components/DateInput';
 // ... other imports
 
+import getAdobeToken from "../data/getAdobeToken";
+import getPresignedUploadURL from "../data/getPresignedUploadURL";
+
 const App = () => {
+  const [adobeToken, setAdobeToken] = useState(null);
+  const [presignedURL, setPresignedURL] = useState(null)
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getAdobeToken();
+        const responseObject = JSON.parse(response);
+        const accessToken = responseObject.access_token; 
+        console.log(accessToken)
+        setAdobeToken(accessToken);
+        //
+        const presignedResponse = await getPresignedUploadURL(accessToken);
+        const presignedResponseObject = JSON.parse(presignedResponse);
+        setPresignedURL(presignedResponseObject); 
+      } catch (err) {
+        console.log(err)
+        setError(err);
+      }
+    };
+    
+    fetchData(); // Call the function to fetch the token
+  }, []);
+
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
