@@ -15,8 +15,9 @@ const requestOptions = {
 
 async function getAdobeToken() {
   try {
-    const response = await fetch(token_url, requestOptions);
+    const response = await fetch("https://pdf-services-ew1.adobe.io/token", requestOptions);
     const result = await response.text();
+    console.log(result);
     return result; 
   } catch (error) {
     console.error(error);

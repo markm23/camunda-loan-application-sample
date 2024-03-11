@@ -5,9 +5,6 @@ async function getPresignedUploadURL(access_token) {
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("X-API-Key", client_id);
   myHeaders.append("Authorization", "Bearer " + access_token);
-  myHeaders.append("Access-Control-Allow-Headers", "*");
-  myHeaders.append("Access-Control-Allow-Methods", "*");
-  myHeaders.append("Access-Control-Allow-Origin", "*");
 
   const urlencoded = new URLSearchParams();
   urlencoded.append("mediaType", "application/pdf");
@@ -19,7 +16,7 @@ async function getPresignedUploadURL(access_token) {
     redirect: "follow",
   };
   try {
-    const response = await fetch(pdf_service_url, requestOptions);
+    const response = await fetch('/api/assets', requestOptions);
     const result = await response.text();
     return result;
   } catch (error) {

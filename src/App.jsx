@@ -18,7 +18,7 @@ import {
   loanTypeLookup,
 } from "../data/lookupHardcode";
 import FileUpload from "./components/FileUpload";
-//import callAppianWebAPI from '../data/lookups';
+import callAppianWebAPI from '../data/lookups';
 //import DateInput from './components/DateInput';
 // ... other imports
 
@@ -40,8 +40,9 @@ const App = () => {
         setAdobeToken(accessToken);
         //
         const presignedResponse = await getPresignedUploadURL(accessToken);
-        const presignedResponseObject = JSON.parse(presignedResponse);
-        setPresignedURL(presignedResponseObject); 
+        console.log(presignedResponse)
+        //const presignedResponseObject = JSON.parse(presignedResponse);
+        setPresignedURL(presignedResponse); 
       } catch (err) {
         console.log(err)
         setError(err);
@@ -117,19 +118,19 @@ const App = () => {
   const fileExtensions = {
     accept: ".jpg, .jpeg, .png, .pdf",
   };
-  //   async function processData() {
-  //     try {
-  //         const apiEndpoint = 'https://bpklz2i360.execute-api.eu-west-2.amazonaws.com/dev';
-  //         const customerData = await callAppianWebAPI(apiEndpoint, 'GET', null, {table: "user"});
-  //         console.log(customerData)
-  //         // Do something with the customerData
-  //         console.log('Customer Data:', customerData);
-  //     } catch (error) {
-  //         console.error('Error fetching data:', error);
-  //     }
-  // }
+    async function processData() {
+      try {
+          const apiEndpoint = 'https://bpklz2i360.execute-api.eu-west-2.amazonaws.com/dev';
+          const customerData = await callAppianWebAPI(apiEndpoint, 'GET', null, {table: "user"});
+          console.log(customerData)
+          // Do something with the customerData
+          console.log('Customer Data:', customerData);
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+  }
 
-  // processData();
+  processData();
 
   return (
     <>
