@@ -14,11 +14,12 @@ async function uploadAppianFile(file) {
       "https://5g3m2m0yca.execute-api.us-east-1.amazonaws.com/dev/appian-upload",
       options
     );
-    console.log(response);
-    return response; // Return the raw API response
+    const result = await response.text();
+    console.log(response)
+    return result; 
   } catch (error) {
-    console.error("Error calling Appian Web API:", error);
-    throw error;
+    console.error(error);
+    throw error; // Re-throw the error to allow the caller to handle it
   }
 }
 
