@@ -15,6 +15,7 @@ export async function uploadDocumentAppian(file) {
     myHeaders.append("Content-Type", "application/pdf");
     myHeaders.append("Appian-Document-Name", "name");
     myHeaders.append("Appian-API-Key", credentials.appian_api_key);
+    myHeaders.append("Access-Control-Allow-Origin", "*");
     console.log(myHeaders);
     const fileUpload = file;
 

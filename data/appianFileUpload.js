@@ -3,6 +3,7 @@ async function uploadAppianFile(file) {
     method: "POST",
     headers: {
       "Appian-Document-Name": file.name,
+      "Access-Control-Allow-Origin": "*"
     },
     body: file,
   };
