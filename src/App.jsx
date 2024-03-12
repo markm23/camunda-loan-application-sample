@@ -18,12 +18,12 @@ import {
   loanTypeLookup,
 } from "../data/lookupHardcode";
 import FileUpload from "./components/FileUpload";
-import callAppianWebAPI from '../data/lookups';
+// import callAppianWebAPI from '../data/lookups';
 //import DateInput from './components/DateInput';
 // ... other imports
 
 import getAdobeToken from "../data/getAdobeToken";
-import getPresignedUploadURL from "../data/getPresignedUploadURL";
+import getAdobePresignedUploadURL from "../data/getAdobePresignedUploadURL";
 
 const App = () => {
   const [adobeToken, setAdobeToken] = useState(null);
@@ -33,16 +33,11 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getAdobeToken();
-        const responseObject = JSON.parse(response);
-        const accessToken = responseObject.access_token; 
-        console.log(accessToken)
-        setAdobeToken(accessToken);
-        //
-        const presignedResponse = await getPresignedUploadURL(accessToken);
-        console.log(presignedResponse)
-        //const presignedResponseObject = JSON.parse(presignedResponse);
-        setPresignedURL(presignedResponse); 
+        const response = await getAdobePresignedUploadURL();
+        // const responseObject = JSON.parse(response);
+        console.log(response);
+        // console.log(responseObject);
+
       } catch (err) {
         console.log(err)
         setError(err);
@@ -118,19 +113,19 @@ const App = () => {
   const fileExtensions = {
     accept: ".jpg, .jpeg, .png, .pdf",
   };
-    async function processData() {
-      try {
-          const apiEndpoint = 'https://bpklz2i360.execute-api.eu-west-2.amazonaws.com/dev';
-          const customerData = await callAppianWebAPI(apiEndpoint, 'GET', null, {table: "user"});
-          console.log(customerData)
-          // Do something with the customerData
-          console.log('Customer Data:', customerData);
-      } catch (error) {
-          console.error('Error fetching data:', error);
-      }
-  }
+  //   async function processData() {
+  //     try {
+  //         const apiEndpoint = 'https://bpklz2i360.execute-api.eu-west-2.amazonaws.com/dev';
+  //         const customerData = await callAppianWebAPI(apiEndpoint, 'GET', null, {table: "user"});
+  //         console.log(customerData)
+  //         // Do something with the customerData
+  //         console.log('Customer Data:', customerData);
+  //     } catch (error) {
+  //         console.error('Error fetching data:', error);
+  //     }
+  // }
 
-  processData();
+  // processData();
 
   return (
     <>
