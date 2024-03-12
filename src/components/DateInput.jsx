@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const DateInput = ({ label, name, dateBefore, dateAfter, errorMessage }) => {
+const DateInput = ({ date, label, name, dateBefore, dateAfter, onChange, errorMessage }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [validationError, setValidationError] = useState("");
 
@@ -22,9 +22,10 @@ const DateInput = ({ label, name, dateBefore, dateAfter, errorMessage }) => {
     return true;
   };
 
-  const handleChange = (date) => {
-    setSelectedDate(date);
-    isValidDate(date);
+  const handleChange = (newDate) => {
+    setSelectedDate(newDate);
+    isValidDate(newDate);
+    onChange(newDate); // Pass the new date directly to the parent
   };
 
   return (
