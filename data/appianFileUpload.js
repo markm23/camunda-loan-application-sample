@@ -1,6 +1,7 @@
 async function uploadAppianFile(file) {
   const options = {
     method: "POST",
+    redirect: "follow",
     headers: {
       "Appian-Document-Name": file.name,
       "Access-Control-Allow-Origin": "*"
