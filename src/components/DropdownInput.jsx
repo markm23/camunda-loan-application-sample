@@ -1,10 +1,10 @@
 import React from 'react';
 
-const DropdownInput = ({ label, name, value, options, idKey = 'code', nameKey = 'name', returnIdKey=false, onChange }) => {
+const DropdownInput = ({ label, name, value, options, idKey = 'code', nameKey = 'name', returnIdKey=false, onChange, required=true }) => {
   return (
     <>
       <label htmlFor={name}>{label}</label>
-      <select id={name} name={name} value={value || ''} onChange={onChange}>
+      <select id={name} name={name} required={required} value={value || ''} onChange={onChange}>
         <option value="">Select an option</option>
         {options.map((option) => {
           // Check if option is an object

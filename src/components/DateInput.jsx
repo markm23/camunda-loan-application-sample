@@ -34,7 +34,7 @@ const DateInput = ({ date, label, name, dateBefore, dateAfter, onChange, errorMe
       <DatePicker
         selected={selectedDate}
         onChange={handleChange}
-        // ...other date picker props
+        required={true}
       />
       {validationError && <p style={{ color: "red" }}>{validationError}</p>}
     </div>

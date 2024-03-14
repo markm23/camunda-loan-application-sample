@@ -1,0 +1,6 @@
+curl -v -X POST \
+-H "Content-Type: application/pdf" \
+-H "Appian-Document-Name: test_document" \
+-H "Appian-API-Key: yeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3Y2UyYzZjOS0xYjk2LTRmMDMtYWE5OC02YzlmMjI0Mjc1NmUifQ.1RgP9FVjKnIxkIH3WMa9WEkgNx32oUnNSVnv4az0geo" \
+--data-binary @test.pdf  \
+https://vassuk.appiancloud.com/suite/webapi/upload-document

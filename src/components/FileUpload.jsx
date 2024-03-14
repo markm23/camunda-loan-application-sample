@@ -33,7 +33,7 @@ const FileUpload = ({
         </ul>
       </div>
       <div className="upload-section">
-        <input type="file" onChange={handleChange} />
+        <input type="file" required={true} onChange={handleChange} />
         {validationError && <p style={{ color: "red" }}>{errorMessage}</p>}
       </div>
     </div>

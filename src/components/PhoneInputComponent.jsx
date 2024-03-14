@@ -18,6 +18,7 @@ const PhoneInputComponent = ({ name, value, onChange }) => {
         placeholder="Enter phone number"
         value={phone}
         onChange={handleChange}
+        required={true}
       />
     </section>
   );

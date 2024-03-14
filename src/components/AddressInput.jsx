@@ -64,6 +64,7 @@ const AddressInput = ({ value, onChange }) => {
           name="addressLine1"
           value={address.addressLine1}
           onChange={handleAddressChange}
+          required={true}
         />
         <label htmlFor="addressLine2">Address Line 2</label>
         <input
@@ -72,6 +73,7 @@ const AddressInput = ({ value, onChange }) => {
           name="addressLine2"
           value={address.addressLine2}
           onChange={handleAddressChange}
+          required={false}
         />
         <PostCodeInput
           name="postCode"
@@ -103,6 +105,7 @@ const AddressInput = ({ value, onChange }) => {
           name="city"
           value={address.city}
           onChange={handleAddressChange}
+          required={true}
         />
       </div>
     </div>

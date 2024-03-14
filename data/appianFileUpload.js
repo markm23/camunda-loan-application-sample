@@ -1,17 +1,26 @@
 async function uploadAppianFile(file) {
+  function createFormData(file) {
+    const formData = new FormData();
+    formData.append('file', file); // Assuming your API expects the file under the key 'file'
+    return formData;
+  }
+  
+  console.log(file);
   const options = {
     method: "POST",
-    redirect: "follow",
+    // redirect: "follow",
     headers: {
       "Appian-Document-Name": file.name,
-      "Access-Control-Allow-Origin": "*"
+      "Content-Type": "multipart/form-data"
+      // "Access-Control-Allow-Origin": "*"
     },
-    body: file,
+    // mode: "no-cors",
+    body: createFormData(file),
   };
   console.log(options);
   try {
     const response = await fetch(
-      "https://5g3m2m0yca.execute-api.us-east-1.amazonaws.com/dev/appian-upload",
+      "https://hxsmxhvgjl.execute-api.eu-west-2.amazonaws.com/dev/appian-upload",
       options
     );
     const result = await response.text();

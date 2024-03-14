@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function PostCodeInput({ name, label, value, onChange, ...otherProps }) {
+function PostCodeInput({ name, label, value, required=true, onChange, ...otherProps }) {
   const [postcode, setPostcode] = useState(value);
   const [isValid, setIsValid] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");  
@@ -35,6 +35,7 @@ function PostCodeInput({ name, label, value, onChange, ...otherProps }) {
         id={name}
         name={name}
         value={postcode}
+        required={required}
         onChange={handleChange}
       />
       {!isValid && <p style={{ color: "red" }}>Invalid Post Code Format</p>}

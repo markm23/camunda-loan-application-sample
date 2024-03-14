@@ -36,7 +36,8 @@ const EmailInput = ({ name, label, value, onChange, error }) => {
         name={name}
         value={email}
         onChange={handleEmailChange}
-        className={isValid ? "" : "error"} // Apply error class if invalid
+        className={isValid ? "" : "error"}
+        required={true}
       />
       {isValid || (
         <p name={name} style={{ color: "red" }}>

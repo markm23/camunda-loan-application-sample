@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TextInput = ({ label, name, value, onChange }) => {
+const TextInput = ({ label, name, value, required=true, onChange }) => {
   return (
     <div className='input-line'>
       <label htmlFor={name}>{label}</label>
@@ -10,6 +10,7 @@ const TextInput = ({ label, name, value, onChange }) => {
         name={name} 
         value={value} 
         onChange={onChange} 
+        required={required}
       />
     </div>
   );

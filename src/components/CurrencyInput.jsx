@@ -39,6 +39,7 @@ const CurrencyInput = ({ name, label, value, onChange, error }) => {
           name={name} 
           value={value.amount} 
           onChange={handleAmountChange}
+          required={true}
         />
       </div>
       {error && <div className="error-message">{error}</div>}
