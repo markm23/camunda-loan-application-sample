@@ -16,6 +16,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { createTheme } from "@mui/material/styles";
+import "src/assets/VASS-Logo.png";
 
 const darkTheme = createTheme({
   palette: {
