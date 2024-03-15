@@ -16,7 +16,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { createTheme } from "@mui/material/styles";
-import "src/assets/VASS-Logo.png";
+import vassLogo from './assets/VASS-Logo.png';
 
 const darkTheme = createTheme({
   palette: {
@@ -179,7 +179,7 @@ export default function Navbar() {
             <MenuIcon />
           </IconButton>
           <a href="https://vasscompany.com/en/" target="_blank">
-            <img src="src/assets/VASS-Logo.png" height="25px" />
+            <img src={vassLogo} height="25px" />
           </a>
           <Search>
             <SearchIconWrapper>
