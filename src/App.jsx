@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 //import "./index.css";
 import "./app.css";
+import Navbar from "./components/Navbar";
 import {
   proofOfAddressInstructions,
   proofOfIncomeInstructions,
@@ -33,6 +34,7 @@ import { callCamundaWebhook } from "../data/callCamundaWebhook";
 
 const App = () => {
   const formRef = useRef(null);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const [userInputs, setUserInputs] = useState({
     firstName: "",
@@ -167,133 +169,168 @@ const App = () => {
     event.preventDefault();
     if (formRef.current.checkValidity()) {
       const customerData = createCustomerData(userInputs, today);
-      const proofOfAddress = await convertFileToBase64(userInputs.proofOfAddress);
-      const proofOfIncome = {}
+      const proofOfAddress = await convertFileToBase64(
+        userInputs.proofOfAddress
+      );
+      const proofOfIncome = {};
       const submissionData = {
         customerData: customerData,
         proofOfAddress: proofOfAddress,
         proofOfIncome: proofOfIncome,
       };
       callCamundaWebhook(submissionData);
+      setFormSubmitted(true);
     } else {
       console.log("fill in required fields");
       formRef.current.reportValidity(); // Force browser to show errors
     }
   };
   return (
-    <form ref={formRef}>
-      {" "}
-      <div className="form-container">
-        {/* Wrapper for layout */}
-        <div className="form-column">
-          {/* Column 1 */}
-          <TextInput
-            label="First Name"
-            name="firstName"
-            value={userInputs.firstName}
-            onChange={handleChange}
-          />
-          <TextInput
-            label="Last Name"
-            name="lastName"
-            value={userInputs.lastName}
-            onChange={handleChange}
-          />
-          <DateInput
-            label="Date of Birth"
-            name="dateOfBirth"
-            dateBefore={eighteenYearsAgo}
-            dateAfter={hundredYearsAgo}
-            date={userInputs.dateOfBirth}
-            errorMessage="Invalid date selection"
-            onChange={(date) =>
-              setUserInputs({ ...userInputs, dateOfBirth: date })
-            }
-          />
-          <PhoneInputComponent
-            name="phone"
-            value={userInputs.phone}
-            onChange={handlePhoneChange}
-          />
-          <EmailInput
-            name="emailAddress"
-            label="Email"
-            value={userInputs.email}
-            onChange={handleChange}
-          />
-          <div className="input-line">
-            <DropdownInput
-              label="Loan Type"
-              name="loanType"
-              value={userInputs.loanType || ""}
-              options={loanTypeLookup}
-              onChange={handleChange}
-              idKey="loanTypeID"
-              returnIdKey={true}
-            />
-          </div>
-          <div className="input-line">
-            <CurrencyInput
-              name="loanAmount"
-              label="Loan Amount"
-              value={userInputs.loanAmount}
-              onChange={handleCurrencyChange}
-            />
-          </div>
-        </div>
-        <div className="form-column">
-          {/* Column 2 */}
-          <AddressInput
-            name="address"
-            value={userInputs.address}
-            onChange={(address) => setUserInputs({ ...userInputs, address })}
-          />
-          <div className="input-line">
-            <DropdownInput
-              label="Employment Type"
-              name="employmentType"
-              value={userInputs.employmentType || ""}
-              options={employmentTypeLookup}
-              onChange={handleChange}
-              idKey="employmentTypeID"
-              returnIdKey={true}
-            />
-            <DropdownInput
-              label="Housing Status"
-              name="housingStatus"
-              value={userInputs.housingStatus || ""}
-              options={housingStatusLookup}
-              onChange={handleChange}
-              idKey="housingStatusID"
-              returnIdKey={true}
-            />
-          </div>
-        </div>
-      </div>
+    <>
       <div>
-        <hr></hr>
-        <h2>Proof Of Address</h2>
-        <FileUpload
-          acceptedTypes={["image/jpeg", "image/png", "application/pdf"]}
-          onUpload={handleFileUpload}
-          errorMessage="Invalid file type. Please upload JPEG, PNG, or PDF files."
-          fieldName="proofOfAddress"
-          instructions={proofOfAddressInstructions}
-        />
-        <hr></hr>
-        <h2>Proof Of Income</h2>
-        <FileUpload
-          acceptedTypes={["image/jpeg", "image/png", "application/pdf"]}
-          onUpload={handleFileUpload}
-          errorMessage="Invalid file type. Please upload JPEG, PNG, or PDF files."
-          fieldName="proofOfIncome"
-          instructions={proofOfIncomeInstructions}
-        />
-        <button type="submit" onClick={handleSubmit}>
-          Submit
-        </button>
+        <header
+          style={{
+            display: "flex",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            zIndex: 776,
+          }}
+        >
+          <Navbar />
+        </header>
       </div>
-    </form>
+      {formSubmitted ? (
+        <div className="confirmation-page">
+          <h2>We have your application...</h2>
+          <p>Thank you for your submission!</p>
+          <button
+            onClick={() => {
+              setFormSubmitted(false);
+            }}
+          >
+            Back
+          </button>
+        </div>
+      ) : (
+        <form ref={formRef}>
+          {" "}
+          <div className="form-container">
+            {/* Wrapper for layout */}
+            <div className="form-column">
+              {/* Column 1 */}
+              <TextInput
+                label="First Name"
+                name="firstName"
+                value={userInputs.firstName}
+                onChange={handleChange}
+              />
+              <TextInput
+                label="Last Name"
+                name="lastName"
+                value={userInputs.lastName}
+                onChange={handleChange}
+              />
+              <DateInput
+                label="Date of Birth"
+                name="dateOfBirth"
+                dateBefore={eighteenYearsAgo}
+                dateAfter={hundredYearsAgo}
+                date={userInputs.dateOfBirth}
+                errorMessage="Invalid date selection"
+                onChange={(date) =>
+                  setUserInputs({ ...userInputs, dateOfBirth: date })
+                }
+              />
+              <PhoneInputComponent
+                name="phone"
+                value={userInputs.phone}
+                onChange={handlePhoneChange}
+              />
+              <EmailInput
+                name="emailAddress"
+                label="Email"
+                value={userInputs.email}
+                onChange={handleChange}
+              />
+              <div className="input-line">
+                <DropdownInput
+                  label="Loan Type"
+                  name="loanType"
+                  value={userInputs.loanType || ""}
+                  options={loanTypeLookup}
+                  onChange={handleChange}
+                  idKey="loanTypeID"
+                  returnIdKey={true}
+                />
+              </div>
+              <div className="input-line">
+                <CurrencyInput
+                  name="loanAmount"
+                  label="Loan Amount"
+                  value={userInputs.loanAmount}
+                  onChange={handleCurrencyChange}
+                />
+              </div>
+            </div>
+            <div className="form-column">
+              {/* Column 2 */}
+              <AddressInput
+                name="address"
+                value={userInputs.address}
+                onChange={(address) =>
+                  setUserInputs({ ...userInputs, address })
+                }
+              />
+              <div className="input-line">
+                <DropdownInput
+                  label="Employment Type"
+                  name="employmentType"
+                  value={userInputs.employmentType || ""}
+                  options={employmentTypeLookup}
+                  onChange={handleChange}
+                  idKey="employmentTypeID"
+                  returnIdKey={true}
+                />
+                <DropdownInput
+                  label="Housing Status"
+                  name="housingStatus"
+                  value={userInputs.housingStatus || ""}
+                  options={housingStatusLookup}
+                  onChange={handleChange}
+                  idKey="housingStatusID"
+                  returnIdKey={true}
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <hr></hr>
+            <h2>Proof Of Address</h2>
+            <FileUpload
+              acceptedTypes={["image/jpeg", "image/png", "application/pdf"]}
+              onUpload={handleFileUpload}
+              errorMessage="Invalid file type. Please upload JPEG, PNG, or PDF files."
+              fieldName="proofOfAddress"
+              instructions={proofOfAddressInstructions}
+            />
+            <hr></hr>
+            <h2>Proof Of Income</h2>
+            <FileUpload
+              acceptedTypes={["image/jpeg", "image/png", "application/pdf"]}
+              onUpload={handleFileUpload}
+              errorMessage="Invalid file type. Please upload JPEG, PNG, or PDF files."
+              fieldName="proofOfIncome"
+              instructions={proofOfIncomeInstructions}
+            />
+            <button type="submit" onClick={handleSubmit}>
+              Submit
+            </button>
+          </div>
+        </form>
+      )}
+    </>
   );
 };
 
