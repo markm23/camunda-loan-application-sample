@@ -178,7 +178,7 @@ export default function Navbar() {
             <MenuIcon />
           </IconButton>
           <a href="https://vasscompany.com/en/" target="_blank">
-            <img src="src\assets\VASS-Logo.png" height="25px" />
+            <img src="src/assets/VASS-Logo.png" height="25px" />
           </a>
           <Search>
             <SearchIconWrapper>
