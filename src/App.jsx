@@ -175,8 +175,8 @@ const App = () => {
       const proofOfIncome = {};
       const submissionData = {
         customerData: customerData,
-        proofOfAddress: proofOfAddress,
-        proofOfIncome: proofOfIncome,
+        proofOfAddress: "Proof of Address",
+        proofOfIncome: "Proof of Income",
       };
       callCamundaWebhook(submissionData);
       setFormSubmitted(true);
