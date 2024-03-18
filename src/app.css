@@ -95,6 +95,7 @@
 .form-container {
   display: flex; /* Use flexbox for column layout */
   gap: 20px; /* Spacing between columns */
+  padding-top: 75px;
 }
 
 .form-column {
