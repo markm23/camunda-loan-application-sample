@@ -19,20 +19,16 @@ import {
   loanTypeLookup,
 } from "../data/lookupHardcode";
 import FileUpload from "./components/FileUpload";
-// import callAppianWebAPI from '../data/lookups';
-//import DateInput from './components/DateInput';
-// ... other imports
-
-// import getAdobeToken from "../data/getAdobeToken";
-// import getAdobePresignedUploadURL from "../data/getAdobePresignedUploadURL";
-// import { uploadFile } from "../data/putUploadFile";
-// import { getFile } from "../data/postGetAsset";
-// import uploadAppianFile from "../data/appianFileUpload";
-// import uploadFileNoCORS from "../data/appianFileUploadNoCORS";
-
 import { callCamundaWebhook } from "../data/callCamundaWebhook";
 
+import {
+  generateCardNumber,
+  generateSortCode,
+  createCustomerData,
+} from "./functions/builders";
+
 const App = () => {
+
   const formRef = useRef(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -117,58 +113,11 @@ const App = () => {
   const hundredYearsAgo = new Date();
   hundredYearsAgo.setFullYear(today.getFullYear() - 100);
 
-  const formatDate = (date) => {
-    return (
-      date.getFullYear() +
-      "-" +
-      ("0" + (date.getMonth() + 1)).slice(-2) +
-      "-" +
-      ("0" + date.getDate()).slice(-2)
-    );
-  };
-
-  const createCaseData = (userInputs, today) => {
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1); // Calculate tomorrow's date
-
-    return {
-      fk_caseStatusID: 1, // hardcoded to new case
-      fk_loanTypeID: parseInt(userInputs.loanType, 10),
-      loanAmount:
-        userInputs.loanAmount.currency + " " + userInputs.loanAmount.amount,
-      renewalFrequency: "Daily",
-      nextRenewalDate: formatDate(tomorrow),
-      fk_createdByUserID: 1,
-      createdOn: formatDate(today),
-      fk_modifiedByUserID: 1,
-      modifiedOn: formatDate(today),
-      isActive: true,
-    };
-  };
-
-  const createCustomerData = (userInputs, today) => {
-    return {
-      case: createCaseData(userInputs, today),
-      firstName: userInputs.firstName,
-      lastName: userInputs.lastName,
-      dateOfBirth: formatDate(userInputs.dateOfBirth),
-      address: userInputs.addressFull,
-      fk_employmentTypeID: parseInt(userInputs.employmentType, 10),
-      fk_housingStatusID: parseInt(userInputs.housingStatus, 10),
-      email: userInputs.emailAddress,
-      phoneNo: userInputs.phone,
-      fk_createdByUserID: 1, // Hardcoded to system
-      createdOn: formatDate(today),
-      fk_modifiedByUserID: 1,
-      modifiedOn: formatDate(today),
-      isActive: true,
-    };
-  };
-
   const handleSubmit = async () => {
     event.preventDefault();
     if (formRef.current.checkValidity()) {
       const customerData = createCustomerData(userInputs, today);
+      console.log(customerData);
       const proofOfAddress = await convertFileToBase64(
         userInputs.proofOfAddress
       );
