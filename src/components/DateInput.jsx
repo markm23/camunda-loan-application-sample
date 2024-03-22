@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const DateInput = ({ date, label, name, dateBefore, dateAfter, onChange, errorMessage }) => {
+const DateInput = ({
+  date,
+  label,
+  name,
+  dateBefore,
+  dateAfter,
+  onChange,
+  errorMessage,
+}) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [validationError, setValidationError] = useState("");
 
@@ -29,15 +37,18 @@ const DateInput = ({ date, label, name, dateBefore, dateAfter, onChange, errorMe
   };
 
   return (
-    <div className="input-line">
-      <label htmlFor={name}>{label}</label>
-      <DatePicker
-        selected={selectedDate}
-        onChange={handleChange}
-        required={true}
-      />
-      {validationError && <p style={{ color: "red" }}>{validationError}</p>}
-    </div>
+    <>
+      <div className="input-line">
+        <label htmlFor={name}>{label}</label>
+        <DatePicker
+          placeholderText="Select Date"
+          selected={selectedDate}
+          onChange={handleChange}
+          required={true}
+        />
+      </div>
+      {validationError && <p className="validations">{validationError}</p>}
+    </>
   );
 };
 

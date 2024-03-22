@@ -28,23 +28,26 @@ const EmailInput = ({ name, label, value, onChange, error }) => {
   };
 
   return (
-    <div className="input-line">
-      <label htmlFor={name}>{label}</label>
-      <input
-        // type="email"
-        id={name}
-        name={name}
-        value={email}
-        onChange={handleEmailChange}
-        className={isValid ? "" : "error"}
-        required={true}
-      />
+    <>
+      <div className="input-line">
+        <label htmlFor={name}>{label}</label>
+        <input
+          // type="email"
+          placeholder="Enter Email"
+          id={name}
+          name={name}
+          value={email}
+          onChange={handleEmailChange}
+          className={isValid ? "" : "error"}
+          required={true}
+        />
+      </div>
       {isValid || (
-        <p name={name} style={{ color: "red" }}>
+        <p name={name} className="validations">
           Invalid Email Format
         </p>
       )}
-    </div>
+    </>
   );
 };
 

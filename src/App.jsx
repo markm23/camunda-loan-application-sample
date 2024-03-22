@@ -170,12 +170,14 @@ const App = () => {
             <div className="form-column">
               {/* Column 1 */}
               <TextInput
+                placeholder="Enter First Name"
                 label="First Name"
                 name="firstName"
                 value={userInputs.firstName}
                 onChange={handleChange}
               />
               <TextInput
+                placeholder="Enter Last Name(s)"
                 label="Last Name"
                 name="lastName"
                 value={userInputs.lastName}
@@ -242,6 +244,8 @@ const App = () => {
                   idKey="employmentTypeID"
                   returnIdKey={true}
                 />
+              </div>
+              <div className="input-line">
                 <DropdownInput
                   label="Housing Status"
                   name="housingStatus"
@@ -273,9 +277,11 @@ const App = () => {
               fieldName="proofOfIncome"
               instructions={proofOfIncomeInstructions}
             />
+            <div class="button-container">
             <button type="submit" onClick={handleSubmit}>
               Submit
             </button>
+            </div>
           </div>
         </form>
       )}

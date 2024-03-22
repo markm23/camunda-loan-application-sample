@@ -10,7 +10,7 @@
   }
   
   .address-line label { 
-    flex: 0 0 33.333%; /* Take up exactly one third */
+    flex: 0 0 150px; /* Take up exactly one third */
     margin-right: 10px; /* Adjust spacing as desired */
   }
   

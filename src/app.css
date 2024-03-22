@@ -2,7 +2,6 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
 
 .logo {
@@ -123,7 +122,7 @@
 }
 
 .input-line label {
-  flex: 0 0 auto; /* Prevent the label from growing or shrinking */
+  flex: 0 0 150px; /* Prevent the label from growing or shrinking */
   margin-right: 10px; /* Add spacing between the label and input */
 }
 
@@ -143,4 +142,51 @@
   border-radius: 4px;
   justify-content: flex-end;
   margin-right: 10px;
+}
+
+.currency-input-container {
+  display: flex;
+  align-items: center; /* Align the label and input vertically */
+  margin-bottom: 10px; /* Add some spacing between input lines */
+}
+
+.currency-input-container label {
+  flex: 0 0 150px; /* Prevent the label from growing or shrinking */
+  margin-right: 10px; /* Add spacing between the label and input */
+}
+
+.input-and-dropdown {
+  display: flex; /* Use flexbox for side-by-side layout */
+  align-items: center; /* Align components vertically */
+}
+
+.input-and-dropdown > DropdownInput {
+  /* Target DropdownInput assuming it's using a <select> tag */
+  flex: 1; /* Dropdown takes up 1/5th of the space */
+}
+
+.input-and-dropdown > input[type="number"] {
+  flex: 4; /* Input takes up 4/5ths of the space */
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* Pushes the button to the right */
+  width: 100%; /* Ensure the container takes full width */
+}
+
+button[type="submit"] {
+  position: absolute;
+  right: 25%;
+}
+
+.button-spacer {
+  flex-grow: 1; /* Takes up all available horizontal space */
+}
+
+.validations {
+  color: #ff9c9c;
+  margin-left: 160px;
+  margin-top: 0;
+  align-items: center;
 }

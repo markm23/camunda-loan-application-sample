@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import DropdownInput from './DropdownInput'; 
-import { currencyOptions } from '../../data/data';
+import React, { useState, useEffect } from "react";
+import DropdownInput from "./DropdownInput";
+import { currencyOptions } from "../../data/data";
 
 const CurrencyInput = ({ name, label, value, onChange, error }) => {
-  const [currency, setCurrency] = useState(value.currency || 'GBP'); 
-  const [amount, setAmount] = useState(value.amount || ''); 
+  const [currency, setCurrency] = useState(value.currency || "GBP");
+  const [amount, setAmount] = useState(value.amount || "");
 
   const handleCurrencyChange = (selectedCurrency) => {
-    console.log(selectedCurrency.target.value)
+    console.log(selectedCurrency.target.value);
     setCurrency(selectedCurrency.target.value);
     onChange({ currency: selectedCurrency.target.value, amount });
   };
@@ -18,14 +18,13 @@ const CurrencyInput = ({ name, label, value, onChange, error }) => {
   };
 
   useEffect(() => {
-    setCurrency(value.currency || 'GBP');
-    setAmount(value.amount || '');
-  }, [value]); 
+    setCurrency(value.currency || "GBP");
+    setAmount(value.amount || "");
+  }, [value]);
 
   return (
-    <div className="form-group">
-      <label htmlFor={name}>{label}</label>
-      <div className="currency-input-container">
+    <div className="currency-input-container">
+      <div className="input-and-dropdown">
         <DropdownInput
           options={currencyOptions}
           value={currency}
@@ -34,10 +33,11 @@ const CurrencyInput = ({ name, label, value, onChange, error }) => {
           returnIdKey={true}
         />
         <input
-          type="number" 
-          id={name} 
-          name={name} 
-          value={value.amount} 
+          type="number"
+          placeholder="Enter Loan Amount"
+          id={name}
+          name={name}
+          value={value.amount}
           onChange={handleAmountChange}
           required={true}
         />

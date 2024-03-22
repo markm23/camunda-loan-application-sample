@@ -28,18 +28,19 @@ function PostCodeInput({ name, label, value, required=true, onChange, ...otherPr
   };
 
   return (
-    <div className="input-line">
+    <>
       <label htmlFor={name}>{label}</label>
       <input
         type="text"
+        placeholder="Enter Post Code"
         id={name}
         name={name}
         value={postcode}
         required={required}
         onChange={handleChange}
       />
-      {!isValid && <p style={{ color: "red" }}>Invalid Post Code Format</p>}
-    </div>
+    {!isValid && <p className="validations">Invalid Post Code Format</p>}
+    </>
   );
 }
 
