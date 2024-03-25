@@ -21,5 +21,5 @@ export function uploadFileToS3(file, filename) {
   )
     .then((response) => response.text())
     .then((result) => console.log(result))
-    .catch((error) => console.error(error));
+    .catch((error) => console.error(error))
 }
