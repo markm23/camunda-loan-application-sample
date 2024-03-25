@@ -20,6 +20,7 @@ import {
 } from "../data/lookupHardcode";
 import FileUpload from "./components/FileUpload";
 import { callCamundaWebhook } from "../data/callCamundaWebhook";
+import { uploadFileToS3 } from "./functions/apis";
 
 import {
   generateCardNumber,
@@ -115,24 +116,8 @@ const App = () => {
 
   const handleSubmit = async () => {
     event.preventDefault();
-    if (formRef.current.checkValidity()) {
-      const customerData = createCustomerData(userInputs, today);
-      console.log(customerData);
-      const proofOfAddress = await convertFileToBase64(
-        userInputs.proofOfAddress
-      );
-      const proofOfIncome = {};
-      const submissionData = {
-        customerData: customerData,
-        proofOfAddress: "Proof of Address",
-        proofOfIncome: "Proof of Income",
-      };
-      callCamundaWebhook(submissionData);
-      setFormSubmitted(true);
-    } else {
-      console.log("fill in required fields");
-      formRef.current.reportValidity(); // Force browser to show errors
-    }
+    uploadFileToS3(userInputs.proofOfAddress, "Proof of Address - " + userInputs.firstName + " | " + today.toLocaleDateString('en-GB'));
+    uploadFileToS3(userInputs.proofOfIncome, "Proof of Income - " + userInputs.firstName + " | " + today.toLocaleDateString('en-GB'));
   };
   return (
     <>
@@ -277,7 +262,7 @@ const App = () => {
               fieldName="proofOfIncome"
               instructions={proofOfIncomeInstructions}
             />
-            <div class="button-container">
+            <div className="button-container">
             <button type="submit" onClick={handleSubmit}>
               Submit
             </button>
