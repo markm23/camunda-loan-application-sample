@@ -29,7 +29,6 @@ import {
 } from "./functions/builders";
 
 const App = () => {
-
   const formRef = useRef(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -116,8 +115,48 @@ const App = () => {
 
   const handleSubmit = async () => {
     event.preventDefault();
-    uploadFileToS3(userInputs.proofOfAddress, "Proof of Address - " + userInputs.firstName + " | " + today.toLocaleDateString('en-GB'));
-    uploadFileToS3(userInputs.proofOfIncome, "Proof of Income - " + userInputs.firstName + " | " + today.toLocaleDateString('en-GB'));
+
+    if (formRef.current.checkValidity()) {
+      const POAName =
+        "Proof_of_Address-" +
+        userInputs.firstName +
+        "_" +
+        userInputs.lastName +
+        "-" +
+        today.toLocaleDateString("en-GB").replace(/\//g, "-") +
+        ".pdf";
+
+      const POIName =
+        "Proof_of_Income-" +
+        userInputs.firstName +
+        "_" +
+        userInputs.lastName +
+        "-" +
+        today.toLocaleDateString("en-GB").replace(/\//g, "-") +
+        ".pdf";
+
+      const POA_Result = await uploadFileToS3(
+        userInputs.proofOfAddress,
+        POAName
+      );
+      const POI_Result = await uploadFileToS3(
+        userInputs.proofOfIncome,
+        POIName
+      );
+      const POAUrl = POA_Result.objecturl;
+      const POIUrl = POI_Result.objecturl;
+
+      const customerData = createCustomerData(userInputs, POIName, POIUrl, POAName, POAUrl);
+      console.log(customerData);
+      const submissionData = {
+        customerData: customerData,
+      };
+      callCamundaWebhook(submissionData);
+      setFormSubmitted(true);
+    } else {
+      console.log("fill in required fields");
+      formRef.current.reportValidity();
+    }
   };
   return (
     <>
@@ -263,9 +302,9 @@ const App = () => {
               instructions={proofOfIncomeInstructions}
             />
             <div className="button-container">
-            <button type="submit" onClick={handleSubmit}>
-              Submit
-            </button>
+              <button type="submit" onClick={handleSubmit}>
+                Submit
+              </button>
             </div>
           </div>
         </form>

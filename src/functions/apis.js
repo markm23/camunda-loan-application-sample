@@ -1,4 +1,4 @@
-export function uploadFileToS3(file, filename) {
+export async function uploadFileToS3(file, filename) {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/pdf");
   myHeaders.append("Access-Control-Allow-Origin", "*");
@@ -15,11 +15,16 @@ export function uploadFileToS3(file, filename) {
 
   console.log(requestOptions);
 
-  fetch(
-    `https://7h4ioutdyk.execute-api.eu-west-2.amazonaws.com/dev/upload?filename=${filename}`,
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.error(error))
+  try {
+    const response = await fetch(`https://7h4ioutdyk.execute-api.eu-west-2.amazonaws.com/dev/upload?filename=${filename}`,
+    requestOptions); 
+    if (!response.ok) {
+      throw new Error('Network response was not okay');
+    }
+    const responseData = await response.json(); 
+    return responseData;   
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
 }
