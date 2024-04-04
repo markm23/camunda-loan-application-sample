@@ -194,3 +194,7 @@ button[type="submit"] {
 .confirmation-page {
   text-align: center;
 }
+
+.loading-cursor {
+  cursor: wait; /* Standard loading cursor style */
+}

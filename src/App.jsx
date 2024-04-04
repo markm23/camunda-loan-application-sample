@@ -31,7 +31,7 @@ import {
 const App = () => {
   const formRef = useRef(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [userInputs, setUserInputs] = useState({
     firstName: "",
     lastName: "",
@@ -106,6 +106,7 @@ const App = () => {
   };
 
   const today = new Date();
+  console.log(today)
 
   const eighteenYearsAgo = new Date();
   eighteenYearsAgo.setFullYear(today.getFullYear() - 18);
@@ -117,6 +118,7 @@ const App = () => {
     event.preventDefault();
 
     if (formRef.current.checkValidity()) {
+      setIsLoading(true)
       const POAName =
         "Proof_of_Address-" +
         userInputs.firstName +
@@ -152,6 +154,7 @@ const App = () => {
         customerData: customerData,
       };
       callCamundaWebhook(submissionData);
+      setIsLoading(false)
       setFormSubmitted(true);
     } else {
       console.log("fill in required fields");
@@ -159,7 +162,7 @@ const App = () => {
     }
   };
   return (
-    <>
+    <div className={isLoading ? 'loading-cursor' : ''}>
       <div>
         <header
           style={{
@@ -302,14 +305,14 @@ const App = () => {
               instructions={proofOfIncomeInstructions}
             />
             <div className="button-container">
-              <button type="submit" onClick={handleSubmit}>
+              <button type="submit" onClick={handleSubmit} >
                 Submit
               </button>
             </div>
           </div>
         </form>
       )}
-    </>
+    </div>
   );
 };
 
