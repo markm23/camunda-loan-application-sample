@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-//import "./index.css";
 import "./app.css";
 import Navbar from "./components/Navbar";
 import {
@@ -13,24 +12,22 @@ import EmailInput from "./components/EmailInput";
 import DropdownInput from "./components/DropdownInput";
 import DateInput from "./components/DateInput";
 import CurrencyInput from "./components/CurrencyInput";
-import {
-  employmentTypeLookup,
-  housingStatusLookup,
-  loanTypeLookup,
-} from "../data/lookupHardcode";
+import { lookupTableNames, lookupTablePrimaryKeys } from "../data/lookupHardcode";
 import FileUpload from "./components/FileUpload";
 import { callCamundaWebhook } from "../data/callCamundaWebhook";
-import { uploadFileToS3 } from "./functions/apis";
+import { getAppianLookupValues, uploadFileToS3 } from "./functions/apis";
 
-import {
-  generateCardNumber,
-  generateSortCode,
-  createCustomerData,
-} from "./functions/builders";
+import { createCustomerData } from "./functions/builders";
+import { handleNestedChange } from "./functions/state_handler";
 
 const App = () => {
   const formRef = useRef(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [lookups, setLookups] = useState({
+    appianLookupsEmploymentStatuses: [],
+    appianLookupsHousingStatuses: [],
+    appianLookupsLoanTypes: [],
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [userInputs, setUserInputs] = useState({
     firstName: "",
@@ -61,23 +58,52 @@ const App = () => {
     },
   });
 
-  async function convertFileToBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  }
-
   const getFullAddress = () => {
     return `${userInputs.address.addressLine1}, ${userInputs.address.city}, ${userInputs.address.region}, ${userInputs.address.country}, ${userInputs.address.postCode}`;
   };
+
+
+
+  //------------------------------------------------------------------------------------------------------------------------------//
+  //-------------------------------------------------------EDIT BELOW - 2---------------------------------------------------------//
+  //------------------------------------------------------------------------------------------------------------------------------//
+  //Add code to get the lookups for loan type and save to state-------------------------------------------------------------------//
+  //Hint: use existing code as reference, and hover over some of the variable for descriptions------------------------------------//
+  //------------------------------------------------------------------------------------------------------------------------------//
+  useEffect(() => {
+    const fetchData = async () => {
+      const employmentStatusesData = await getAppianLookupValues(
+        lookupTableNames[0],
+        lookupTablePrimaryKeys[0]
+      );
+      const housingStatusesData = await getAppianLookupValues(
+        lookupTableNames[1],
+        lookupTablePrimaryKeys[1]
+      );
+      handleNestedChange(
+        setLookups,
+        "appianLookupsEmploymentStatuses",
+        employmentStatusesData
+      );
+      handleNestedChange(
+        setLookups,
+        "appianLookupsHousingStatuses",
+        housingStatusesData
+      );
+    };
+    fetchData();
+  }, []); // Call on mount
+  //------------------------------------------------------------------------------------------------------------------------------//
+  //-------------------------------------------------------EDIT ABOVE - 2---------------------------------------------------------//
+  //------------------------------------------------------------------------------------------------------------------------------//
+
+
 
   useEffect(() => {
     const fullAddress = getFullAddress();
     setUserInputs({ ...userInputs, addressFull: fullAddress });
   }, [userInputs.address]); // Add userInputs.address as a dependency
+
   // Handle form changes (generic example)
   const handleChange = (event) => {
     setUserInputs({
@@ -101,16 +127,10 @@ const App = () => {
     setUserInputs({ ...userInputs, [fieldName]: file });
     console.log(userInputs);
   };
-  const fileExtensions = {
-    accept: ".jpg, .jpeg, .png, .pdf",
-  };
 
   const today = new Date();
-  console.log(today)
-
   const eighteenYearsAgo = new Date();
   eighteenYearsAgo.setFullYear(today.getFullYear() - 18);
-
   const hundredYearsAgo = new Date();
   hundredYearsAgo.setFullYear(today.getFullYear() - 100);
 
@@ -118,7 +138,7 @@ const App = () => {
     event.preventDefault();
 
     if (formRef.current.checkValidity()) {
-      setIsLoading(true)
+      setIsLoading(true);
       const POAName =
         "Proof_of_Address-" +
         userInputs.firstName +
@@ -148,13 +168,19 @@ const App = () => {
       const POAUrl = POA_Result.objecturl;
       const POIUrl = POI_Result.objecturl;
 
-      const customerData = createCustomerData(userInputs, POIName, POIUrl, POAName, POAUrl);
+      const customerData = createCustomerData(
+        userInputs,
+        POIName,
+        POIUrl,
+        POAName,
+        POAUrl
+      );
       console.log(customerData);
       const submissionData = {
         customerData: customerData,
       };
       callCamundaWebhook(submissionData);
-      setIsLoading(false)
+      setIsLoading(false);
       setFormSubmitted(true);
     } else {
       console.log("fill in required fields");
@@ -162,7 +188,7 @@ const App = () => {
     }
   };
   return (
-    <div className={isLoading ? 'loading-cursor' : ''}>
+    <div className={isLoading ? "loading-cursor" : ""}>
       <div>
         <header
           style={{
@@ -232,17 +258,32 @@ const App = () => {
                 value={userInputs.email}
                 onChange={handleChange}
               />
+{/* 
+//------------------------------------------------------------------------------------------------------------------------------//
+//-------------------------------------------------------EDIT BELOW - 3---------------------------------------------------------//
+//------------------------------------------------------------------------------------------------------------------------------// 
+//Update JSX code to correctly use the retrieved values-------------------------------------------------------------------------//
+//Hint: check the structures of the retrieved hard-coded values versus the retrieved real values--------------------------------//
+//------------------------------------------------------------------------------------------------------------------------------//
+*/}
               <div className="input-line">
                 <DropdownInput
                   label="Loan Type"
                   name="loanType"
                   value={userInputs.loanType || ""}
-                  options={loanTypeLookup}
+                  options={lookups.appianLookupsLoanTypes}
                   onChange={handleChange}
-                  idKey="loanTypeID"
+                  idKey={lookupTablePrimaryKeys[2]}
+                  nameKey="name"
                   returnIdKey={true}
                 />
               </div>
+
+{/* 
+//------------------------------------------------------------------------------------------------------------------------------//
+//-------------------------------------------------------EDIT ABOVE - 3---------------------------------------------------------//
+//------------------------------------------------------------------------------------------------------------------------------// 
+*/}
               <div className="input-line">
                 <CurrencyInput
                   name="loanAmount"
@@ -261,14 +302,23 @@ const App = () => {
                   setUserInputs({ ...userInputs, address })
                 }
               />
+{/* 
+//------------------------------------------------------------------------------------------------------------------------------//
+//-------------------------------------------------------EDIT BELOW - 4---------------------------------------------------------//
+//------------------------------------------------------------------------------------------------------------------------------// 
+//Update JSX code to correctly use the retrieved values-------------------------------------------------------------------------//
+//Hint: check the structures of the retrieved hard-coded values versus the retrieved real values--------------------------------//
+//------------------------------------------------------------------------------------------------------------------------------//
+*/}
               <div className="input-line">
                 <DropdownInput
                   label="Employment Type"
                   name="employmentType"
                   value={userInputs.employmentType || ""}
-                  options={employmentTypeLookup}
+                  options={lookups.appianLookupsEmploymentStatuses}
                   onChange={handleChange}
-                  idKey="employmentTypeID"
+                  idKey={lookupTablePrimaryKeys[0]}
+                  nameKey="name"
                   returnIdKey={true}
                 />
               </div>
@@ -277,12 +327,18 @@ const App = () => {
                   label="Housing Status"
                   name="housingStatus"
                   value={userInputs.housingStatus || ""}
-                  options={housingStatusLookup}
+                  options={lookups.appianLookupsHousingStatuses}
                   onChange={handleChange}
-                  idKey="housingStatusID"
+                  idKey={lookupTablePrimaryKeys[1]}
+                  nameKey="name"
                   returnIdKey={true}
                 />
               </div>
+{/* 
+//------------------------------------------------------------------------------------------------------------------------------//
+//-------------------------------------------------------EDIT ABOVE - 4---------------------------------------------------------//
+//------------------------------------------------------------------------------------------------------------------------------// 
+*/}
             </div>
           </div>
           <div>
@@ -305,7 +361,7 @@ const App = () => {
               instructions={proofOfIncomeInstructions}
             />
             <div className="button-container">
-              <button type="submit" onClick={handleSubmit} >
+              <button type="submit" onClick={handleSubmit}>
                 Submit
               </button>
             </div>
