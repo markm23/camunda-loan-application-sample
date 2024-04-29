@@ -2,7 +2,7 @@
 
 ### **Appian lookup instructions<br>**
 **SM<br>**
-- Add the key/value pair and leave everything else as is (Appian-API-Key), copy value from [Arash’s CCS Service Account API Key](https://vassit.atlassian.net/wiki/spaces/CI/pages/1989902337/VASS+Environments+Secrets+Keys+Credentials#VASS-Web-API-Key-Credentials)<br>
+- Add the key/value pair and leave everything else as is (Appian-API-Key), copy value from Arash’s CCS Service Account API Key in [VASS Web API Key Credentials](https://vassit.atlassian.net/wiki/spaces/CI/pages/1989902337/VASS+Environments+Secrets+Keys+Credentials#VASS-Web-API-Key-Credentials)<br>
 
 **Lambda<br>**
 - Download the sample code ZIP file<br>
