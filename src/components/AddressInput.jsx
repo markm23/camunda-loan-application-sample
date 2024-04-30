@@ -7,7 +7,7 @@ import "./AddressInput.css";
 const AddressInput = ({ value, onChange }) => {
   const [address, setAddress] = useState(value);
   const [countries, setCountries] = useState([]);
-  const [regions, setRegions] = useState([]);
+  const [regions, setRegions] = useState(value.country ? countryRegions[value.country] : []);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedRegion, setSelectedRegion] = useState(null);
 

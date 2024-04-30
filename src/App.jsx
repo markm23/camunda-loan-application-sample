@@ -30,31 +30,31 @@ const App = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [userInputs, setUserInputs] = useState({
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
-    emailAddress: "",
-    phone: "",
-    employmentType: "",
-    housingStatus: "",
+    firstName: "FName",
+    lastName: "LName",
+    dateOfBirth: new Date("1990-01-01"),
+    emailAddress: "fname.lname@vasscompany.com",
+    phone: "+447000000000",
+    employmentType: "1",
+    housingStatus: "1",
     address: {
-      addressLine1: "",
-      addressLine2: "",
-      country: "",
-      city: "",
-      region: "",
-      postCode: "",
+      addressLine1: "5 Merchant Square",
+      addressLine2: "WeWork",
+      country: "GB",
+      city: "London",
+      region: "England",
+      postCode: "W2 1BQ",
     },
-    addressFull: "",
+    addressFull: "5 Merchant Square, WeWork, London, London, United Kingdom, W2 1BQ",
     proofOfIncome: null,
     proofOfAddress: null,
     loanType: {
-      id: "",
-      name: "",
+      id: "1",
+      name: "Personal (HC)",
     },
     loanAmount: {
       currency: "GBP",
-      amount: "",
+      amount: 10000,
     },
   });
 
@@ -184,9 +184,12 @@ const App = () => {
       setFormSubmitted(true);
     } else {
       console.log("fill in required fields");
+      console.log(userInputs);
+      console.log(typeof userInputs.dateOfBirth)
       formRef.current.reportValidity();
     }
   };
+
   return (
     <div className={isLoading ? "loading-cursor" : ""}>
       <div>
@@ -244,7 +247,8 @@ const App = () => {
                 date={userInputs.dateOfBirth}
                 errorMessage="Invalid date selection"
                 onChange={(date) =>
-                  setUserInputs({ ...userInputs, dateOfBirth: date })
+                  {console.log(date)
+                    setUserInputs({ ...userInputs, dateOfBirth: date })}
                 }
               />
               <PhoneInputComponent
@@ -255,7 +259,7 @@ const App = () => {
               <EmailInput
                 name="emailAddress"
                 label="Email"
-                value={userInputs.email}
+                value={userInputs.emailAddress}
                 onChange={handleChange}
               />
 {/* 

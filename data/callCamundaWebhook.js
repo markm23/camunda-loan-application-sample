@@ -1,20 +1,19 @@
 export async function callCamundaWebhook(data) {
-  const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-
-  const requestOptions = {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data),
-  };
-
+  return null;
+  /**
   try {
     const response = await fetch(
-      "https://gj0dobamcb.execute-api.eu-west-2.amazonaws.com/camunda/webhook",
-      requestOptions
-    );
+      "<your webhook url>",
+      {
+        method: "<method>",
+        headers: {
+          "Content-Type": "<what kind of content is being passed into the body?>"
+        },
+        body: "<convert your data into a JSON string>",
+      }
+    ).catch(error => {
+      throw new Error(error);
+    });
     const result = await response.text();
     console.log(result);
     return result; // Return the result for further use
@@ -22,4 +21,5 @@ export async function callCamundaWebhook(data) {
     console.error(error);
     throw error; // Rethrow the error for potential handling elsewhere
   }
+  **/
 }

@@ -33,8 +33,8 @@ export const lookupTableNames = ["employment", "housing", "loan type"]
 /**
  * Primary field names for some tables, matching with lookupTableNames
  * Indexes
- * 0 - employmentStatusID
+ * 0 - employmentTypeID
  * 1 - housingStatusID
  * 2 - loanTypeID
  */
-export const lookupTablePrimaryKeys = ["employmentStatusID", "housingStatusID", "loanTypeID"]
+export const lookupTablePrimaryKeys = ["employmentTypeID", "housingStatusID", "loanTypeID"]
