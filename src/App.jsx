@@ -17,8 +17,11 @@ import {
   lookupTablePrimaryKeys,
 } from "../data/lookupHardcode";
 import FileUpload from "./components/FileUpload";
-import { callCamundaWebhook } from "../data/callCamundaWebhook";
-import { getAppianLookupValues, uploadFileToS3 } from "./functions/apis";
+import {
+  getAppianLookupValues,
+  uploadFileToS3,
+  callCamundaWebhook,
+} from "./functions/apis";
 
 import { createCustomerData } from "./functions/builders";
 import { handleNestedChange } from "./functions/state_handler";
