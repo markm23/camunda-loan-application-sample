@@ -12,7 +12,10 @@ import EmailInput from "./components/EmailInput";
 import DropdownInput from "./components/DropdownInput";
 import DateInput from "./components/DateInput";
 import CurrencyInput from "./components/CurrencyInput";
-import { lookupTableNames, lookupTablePrimaryKeys } from "../data/lookupHardcode";
+import {
+  lookupTableNames,
+  lookupTablePrimaryKeys,
+} from "../data/lookupHardcode";
 import FileUpload from "./components/FileUpload";
 import { callCamundaWebhook } from "../data/callCamundaWebhook";
 import { getAppianLookupValues, uploadFileToS3 } from "./functions/apis";
@@ -45,13 +48,11 @@ const App = () => {
       region: "England",
       postCode: "W2 1BQ",
     },
-    addressFull: "5 Merchant Square, WeWork, London, London, United Kingdom, W2 1BQ",
+    addressFull:
+      "5 Merchant Square, WeWork, London, London, United Kingdom, W2 1BQ",
     proofOfIncome: null,
     proofOfAddress: null,
-    loanType: {
-      id: "1",
-      name: "Personal (HC)",
-    },
+    loanType: 1,
     loanAmount: {
       currency: "GBP",
       amount: 10000,
@@ -61,8 +62,6 @@ const App = () => {
   const getFullAddress = () => {
     return `${userInputs.address.addressLine1}, ${userInputs.address.city}, ${userInputs.address.region}, ${userInputs.address.country}, ${userInputs.address.postCode}`;
   };
-
-
 
   //------------------------------------------------------------------------------------------------------------------------------//
   //-------------------------------------------------------EDIT BELOW - 2---------------------------------------------------------//
@@ -96,8 +95,6 @@ const App = () => {
   //------------------------------------------------------------------------------------------------------------------------------//
   //-------------------------------------------------------EDIT ABOVE - 2---------------------------------------------------------//
   //------------------------------------------------------------------------------------------------------------------------------//
-
-
 
   useEffect(() => {
     const fullAddress = getFullAddress();
@@ -185,7 +182,6 @@ const App = () => {
     } else {
       console.log("fill in required fields");
       console.log(userInputs);
-      console.log(typeof userInputs.dateOfBirth)
       formRef.current.reportValidity();
     }
   };
@@ -247,8 +243,7 @@ const App = () => {
                 date={userInputs.dateOfBirth}
                 errorMessage="Invalid date selection"
                 onChange={(date) =>
-                  {console.log(date)
-                    setUserInputs({ ...userInputs, dateOfBirth: date })}
+                  setUserInputs({ ...userInputs, dateOfBirth: date })
                 }
               />
               <PhoneInputComponent
@@ -262,7 +257,7 @@ const App = () => {
                 value={userInputs.emailAddress}
                 onChange={handleChange}
               />
-{/* 
+              {/* 
 //------------------------------------------------------------------------------------------------------------------------------//
 //-------------------------------------------------------EDIT BELOW - 3---------------------------------------------------------//
 //------------------------------------------------------------------------------------------------------------------------------// 
@@ -283,7 +278,7 @@ const App = () => {
                 />
               </div>
 
-{/* 
+              {/* 
 //------------------------------------------------------------------------------------------------------------------------------//
 //-------------------------------------------------------EDIT ABOVE - 3---------------------------------------------------------//
 //------------------------------------------------------------------------------------------------------------------------------// 
@@ -306,7 +301,7 @@ const App = () => {
                   setUserInputs({ ...userInputs, address })
                 }
               />
-{/* 
+              {/* 
 //------------------------------------------------------------------------------------------------------------------------------//
 //-------------------------------------------------------EDIT BELOW - 4---------------------------------------------------------//
 //------------------------------------------------------------------------------------------------------------------------------// 
@@ -338,7 +333,7 @@ const App = () => {
                   returnIdKey={true}
                 />
               </div>
-{/* 
+              {/* 
 //------------------------------------------------------------------------------------------------------------------------------//
 //-------------------------------------------------------EDIT ABOVE - 4---------------------------------------------------------//
 //------------------------------------------------------------------------------------------------------------------------------// 
