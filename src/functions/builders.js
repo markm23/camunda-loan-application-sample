@@ -74,7 +74,7 @@ export function createCustomerData(data, POIName, POIUrl, POAName, POAUrl) {
     return {
       nameOnCard: data.firstName + " " + data.lastName,
       cardNumber: generateCardNumber(),
-      sortCode: generateSortCode((region = data.address.region)),
+      sortCode: generateSortCode(data.address.region),
       isActive: true,
     };
   };

@@ -45,11 +45,11 @@ export async function uploadFileToS3(file, filename) {
 * @return {Object[]} Key-value pairs for the retrieved data, key is the primary key, and value is the name
 */
 export async function getAppianLookupValues(table, primaryKeyField = "id") {
-  return getHardCodedLookupValues(table)
-  /**
+  // return getHardCodedLookupValues(table)
+  
   try {
     // Call the query API and extract the JSON
-    const url = '<your proxy api url>'
+    const url = 'https://te4beoingl.execute-api.eu-west-2.amazonaws.com/v1/getAppianLookups'
     const response = await fetch(`${url}?table=${table}`, {
       method: "GET"
     }).catch(error => {
@@ -74,7 +74,7 @@ export async function getAppianLookupValues(table, primaryKeyField = "id") {
   } catch (error) {
     console.error("Error retrieving data:", error.message);
   }
-  */
+  
 }
 //------------------------------------------------------------------------------------------------------------------------------//
 //-------------------------------------------------------EDIT ABOVE - 1---------------------------------------------------------//
@@ -98,3 +98,38 @@ function getHardCodedLookupValues(tableName) {
       return []
   }
 }
+
+
+//------------------------------------------------------------------------------------------------------------------------------//
+//-------------------------------------------------------EDIT BELOW - 5---------------------------------------------------------//
+//------------------------------------------------------------------------------------------------------------------------------//
+//Replace null return with real fetch request-----------------------------------------------------------------------------------//
+//Use your created API URL------------------------------------------------------------------------------------------------------//
+//------------------------------------------------------------------------------------------------------------------------------//
+export async function callCamundaWebhook(data) {
+  // return null;
+  
+  try {
+    const response = await fetch(
+      `https://f9r92naghh.execute-api.eu-west-2.amazonaws.com/v1/arashLoanProcessing`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      }
+    ).catch(error => {
+      throw new Error(error);
+    });
+    const result = await response.text();
+    console.log(result);
+    return result; // Return the result for further use
+  } catch (error) {
+    console.error(error);
+    throw error; // Rethrow the error for potential handling elsewhere
+  }
+  
+}
+//------------------------------------------------------------------------------------------------------------------------------//
+//-------------------------------------------------------EDIT ABOVE - 5---------------------------------------------------------//
+//------------------------------------------------------------------------------------------------------------------------------//

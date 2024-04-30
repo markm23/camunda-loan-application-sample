@@ -17,7 +17,7 @@ import {
   lookupTablePrimaryKeys,
 } from "../data/lookupHardcode";
 import FileUpload from "./components/FileUpload";
-import { callCamundaWebhook } from "../data/callCamundaWebhook";
+import { callCamundaWebhook } from "./functions/apis.js";
 import { getAppianLookupValues, uploadFileToS3 } from "./functions/apis";
 
 import { createCustomerData } from "./functions/builders";
@@ -88,6 +88,15 @@ const App = () => {
         setLookups,
         "appianLookupsHousingStatuses",
         housingStatusesData
+      );
+      const loanTypesData = await getAppianLookupValues(
+        lookupTableNames[1],
+        lookupTablePrimaryKeys[1]
+      );
+      handleNestedChange(
+        setLookups,
+        "appianLookupsLoanTypes",
+        loanTypesData
       );
     };
     fetchData();
@@ -272,8 +281,8 @@ const App = () => {
                   value={userInputs.loanType || ""}
                   options={lookups.appianLookupsLoanTypes}
                   onChange={handleChange}
-                  idKey={lookupTablePrimaryKeys[2]}
-                  nameKey="name"
+                  idKey="key"
+                  nameKey="value"
                   returnIdKey={true}
                 />
               </div>
@@ -316,8 +325,8 @@ const App = () => {
                   value={userInputs.employmentType || ""}
                   options={lookups.appianLookupsEmploymentStatuses}
                   onChange={handleChange}
-                  idKey={lookupTablePrimaryKeys[0]}
-                  nameKey="name"
+                  idKey="key"
+                  nameKey="value"
                   returnIdKey={true}
                 />
               </div>
@@ -328,8 +337,8 @@ const App = () => {
                   value={userInputs.housingStatus || ""}
                   options={lookups.appianLookupsHousingStatuses}
                   onChange={handleChange}
-                  idKey={lookupTablePrimaryKeys[1]}
-                  nameKey="name"
+                  idKey="key"
+                  nameKey="value"
                   returnIdKey={true}
                 />
               </div>
