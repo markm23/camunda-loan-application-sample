@@ -8,10 +8,8 @@ const DateInput = ({
   name,
   dateBefore,
   dateAfter,
-  onChange,
-  errorMessage,
+  onChange
 }) => {
-  const [selectedDate, setSelectedDate] = useState(date);
   const [validationError, setValidationError] = useState("");
 
   const isValidDate = (date) => {
@@ -31,7 +29,6 @@ const DateInput = ({
   };
 
   const handleChange = (newDate) => {
-    setSelectedDate(newDate);
     isValidDate(newDate);
     onChange(newDate); // Pass the new date directly to the parent
   };
@@ -42,7 +39,7 @@ const DateInput = ({
         <label htmlFor={name}>{label}</label>
         <DatePicker
           placeholderText="Select Date"
-          selected={selectedDate}
+          selected={date}
           onChange={handleChange}
           required={true}
         />

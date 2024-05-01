@@ -1,30 +1,19 @@
 import React, { useState } from "react";
 
-function PostCodeInput({ name, label, value, required=true, onChange, ...otherProps }) {
-  const [postcode, setPostcode] = useState(value);
+function PostCodeInput({ name, label, value, required=true, onChange }) {
   const [isValid, setIsValid] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");  
 
-  // Example postcode validation (you'll need to adjust for your specific format)
-  const validatePostcode = (postcode) => {
+  function validatePostcode(postcode) {
     const postcodeRegex = /^[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}$/i; 
-    if (!postcodeRegex.test(postcode)) {
-      setErrorMessage("Invalid postcode format");
-      setIsValid(false);
-      return false;
-    }
-    setErrorMessage("");
-    setIsValid(true);
-    return true;
+    const matchesRegex = postcodeRegex.test(postcode);
+    setIsValid(matchesRegex);
+    return matchesRegex;
   };
 
+  // Validations just show up, doesn't stop submission currently
   const handleChange = (event) => {
-    const newPostcode = event.target.value;
-    setPostcode(newPostcode);
-
-    if (validatePostcode(newPostcode)) {
-      onChange(newPostcode); 
-    } 
+    validatePostcode(event.target.value)
+    onChange(event); 
   };
 
   return (
@@ -35,7 +24,7 @@ function PostCodeInput({ name, label, value, required=true, onChange, ...otherPr
         placeholder="Enter Post Code"
         id={name}
         name={name}
-        value={postcode}
+        value={value}
         required={required}
         onChange={handleChange}
       />

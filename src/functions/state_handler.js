@@ -20,6 +20,19 @@ export function handleNestedChange(setStateFunction, inputIdentifier, newValue, 
   }
 }
 
+/**
+ * Update a state using its set function, based on an event. This event's name should match the field/key 
+ * to update the value at. Only works when updating one level down, any further down would require passing 
+ * in all the data up to the first nested level with the actual new value inside.
+ *
+ * @param {Event} event - The changed value event.
+ * @param {function} setFunction - The set function for the related state.
+ * @param {bool} updateOnlyWhenExists - When true, only update the value if it's not null, mainly used for file selection.
+ */
+export function handleNestedChangeWithEvent(event, setFunction) {
+  handleNestedChange(setFunction, event.target.name, event.target.value);
+};
+
 
 /**
  * Custom hook that performs a deep comparison of a value and memoizes the result.

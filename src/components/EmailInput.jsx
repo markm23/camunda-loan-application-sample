@@ -1,30 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const EmailInput = ({ name, label, value, onChange, error }) => {
-  const [email, setEmail] = useState(value);
+const EmailInput = ({ name, label, value, onChange }) => {
   const [isValid, setIsValid] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const validateEmail = (emailInput) => {
+  function validateEmail(emailInput) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex
-    if (!emailRegex.test(emailInput)) {
-      setErrorMessage("Invalid email format");
-      setIsValid(false);
-      return false;
-    }
-
-    setErrorMessage("");
-    setIsValid(true);
-    return true;
+    const matchesRegex = emailRegex.test(emailInput);
+    setIsValid(matchesRegex);
+    return matchesRegex;
   };
 
+  // Validations just show up, doesn't stop submission currently
   const handleEmailChange = (event) => {
-    const emailInput = event.target.value;
-    setEmail(emailInput);
-
-    if (validateEmail(emailInput)) {
-      onChange(event);
-    }
+    validateEmail(event.target.value)
+    onChange(event);
   };
 
   return (
@@ -36,7 +25,7 @@ const EmailInput = ({ name, label, value, onChange, error }) => {
           placeholder="Enter Email"
           id={name}
           name={name}
-          value={email}
+          value={value}
           onChange={handleEmailChange}
           className={isValid ? "" : "error"}
           required={true}

@@ -1,44 +1,37 @@
 import React, { useState, useEffect } from "react";
 import DropdownInput from "./DropdownInput";
 import { currencyOptions } from "../../data/data";
+import { handleNestedChangeWithEvent } from "../functions/state_handler";
 
-const CurrencyInput = ({ name, label, value, onChange, error }) => {
-  const [currency, setCurrency] = useState(value.currency || "GBP");
-  const [amount, setAmount] = useState(value.amount || "");
+const CurrencyInput = ({ value, onChange, error }) => {
+  const [currencyAmount, setCurrencyAmount] = useState(value)
 
-  const handleCurrencyChange = (selectedCurrency) => {
-    console.log(selectedCurrency.target.value);
-    setCurrency(selectedCurrency.target.value);
-    onChange({ currency: selectedCurrency.target.value, amount });
-  };
-
-  const handleAmountChange = (event) => {
-    setAmount(event.target.value);
-    onChange({ currency, amount: event.target.value });
+  const handleAddressChange = (event) => {
+    handleNestedChangeWithEvent(event, setCurrencyAmount); // Notify the parent
   };
 
   useEffect(() => {
-    setCurrency(value.currency || "GBP");
-    setAmount(value.amount || "");
-  }, [value]);
+    onChange(currencyAmount)
+  }, [currencyAmount])
 
   return (
     <div className="currency-input-container">
       <div className="input-and-dropdown">
+        <label>Loan Amount</label>
         <DropdownInput
           options={currencyOptions}
-          value={currency}
-          onChange={handleCurrencyChange}
-          name={name}
+          value={currencyAmount.currency}
+          onChange={handleAddressChange}
+          name="currency"
           returnIdKey={true}
         />
         <input
           type="number"
           placeholder="Enter Loan Amount"
-          id={name}
-          name={name}
-          value={value.amount}
-          onChange={handleAmountChange}
+          id="amounr"
+          name="amount"
+          value={currencyAmount.amount}
+          onChange={handleAddressChange}
           required={true}
         />
       </div>

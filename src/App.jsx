@@ -7,7 +7,7 @@ import {
 } from "../data/data";
 import TextInput from "./components/TextInput";
 import AddressInput from "./components/AddressInput";
-import PhoneInputComponent from "./components/PhoneInputComponent";
+import PhoneNumberInput from "./components/PhoneNumberInput";
 import EmailInput from "./components/EmailInput";
 import DropdownInput from "./components/DropdownInput";
 import DateInput from "./components/DateInput";
@@ -24,7 +24,7 @@ import {
 } from "./functions/apis";
 
 import { createCustomerData } from "./functions/builders";
-import { handleNestedChange } from "./functions/state_handler";
+import { handleNestedChange, handleNestedChangeWithEvent } from "./functions/state_handler";
 
 const App = () => {
   const formRef = useRef(null);
@@ -62,9 +62,9 @@ const App = () => {
     },
   });
 
-  const getFullAddress = () => {
+  function getFullAddress() {
     return `${userInputs.address.addressLine1}, ${userInputs.address.city}, ${userInputs.address.region}, ${userInputs.address.country}, ${userInputs.address.postCode}`;
-  };
+  }
 
   //------------------------------------------------------------------------------------------------------------------------------//
   //-------------------------------------------------------EDIT BELOW - 2---------------------------------------------------------//
@@ -99,34 +99,10 @@ const App = () => {
   //-------------------------------------------------------EDIT ABOVE - 2---------------------------------------------------------//
   //------------------------------------------------------------------------------------------------------------------------------//
 
-  useEffect(() => {
-    const fullAddress = getFullAddress();
-    setUserInputs({ ...userInputs, addressFull: fullAddress });
-  }, [userInputs.address]); // Add userInputs.address as a dependency
-
   // Handle form changes (generic example)
-  const handleChange = (event) => {
-    setUserInputs({
-      ...userInputs,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const handleCurrencyChange = (currencyInput) => {
-    setUserInputs({
-      ...userInputs,
-      loanAmount: currencyInput, // Update loanAmount directly
-    });
-  };
-
-  const handlePhoneChange = (value) => {
-    setUserInputs({ ...userInputs, phone: value });
-  };
-
-  const handleFileUpload = (file, fieldName) => {
-    setUserInputs({ ...userInputs, [fieldName]: file });
-    console.log(userInputs);
-  };
+  function handleUserInputChangeWithEvent(event) {
+    handleNestedChangeWithEvent(event, setUserInputs);
+  }
 
   const today = new Date();
   const eighteenYearsAgo = new Date();
@@ -135,8 +111,7 @@ const App = () => {
   hundredYearsAgo.setFullYear(today.getFullYear() - 100);
 
   const handleSubmit = async () => {
-    event.preventDefault();
-
+    handleNestedChange(setUserInputs, "addressFull", getFullAddress());
     if (formRef.current.checkValidity()) {
       setIsLoading(true);
       const POAName =
@@ -229,14 +204,14 @@ const App = () => {
                 label="First Name"
                 name="firstName"
                 value={userInputs.firstName}
-                onChange={handleChange}
+                onChange={handleUserInputChangeWithEvent}
               />
               <TextInput
                 placeholder="Enter Last Name(s)"
                 label="Last Name"
                 name="lastName"
                 value={userInputs.lastName}
-                onChange={handleChange}
+                onChange={handleUserInputChangeWithEvent}
               />
               <DateInput
                 label="Date of Birth"
@@ -249,16 +224,18 @@ const App = () => {
                   setUserInputs({ ...userInputs, dateOfBirth: date })
                 }
               />
-              <PhoneInputComponent
+              <PhoneNumberInput
                 name="phone"
                 value={userInputs.phone}
-                onChange={handlePhoneChange}
+                onChange={(phone) =>
+                  handleNestedChange(setUserInputs, "phone", phone)
+                }
               />
               <EmailInput
                 name="emailAddress"
                 label="Email"
                 value={userInputs.emailAddress}
-                onChange={handleChange}
+                onChange={handleUserInputChangeWithEvent}
               />
               {/* 
 //------------------------------------------------------------------------------------------------------------------------------//
@@ -274,7 +251,7 @@ const App = () => {
                   name="loanType"
                   value={userInputs.loanType || ""}
                   options={lookups.appianLookupsLoanTypes}
-                  onChange={handleChange}
+                  onChange={handleUserInputChangeWithEvent}
                   idKey={lookupTablePrimaryKeys[2]}
                   nameKey="name"
                   returnIdKey={true}
@@ -291,7 +268,9 @@ const App = () => {
                   name="loanAmount"
                   label="Loan Amount"
                   value={userInputs.loanAmount}
-                  onChange={handleCurrencyChange}
+                  onChange={(loanAmount) =>
+                    handleNestedChange(setUserInputs, "loanAmount", loanAmount)
+                  }
                 />
               </div>
             </div>
@@ -301,7 +280,7 @@ const App = () => {
                 name="address"
                 value={userInputs.address}
                 onChange={(address) =>
-                  setUserInputs({ ...userInputs, address })
+                  handleNestedChange(setUserInputs, "address", address)
                 }
               />
               {/* 
@@ -318,7 +297,7 @@ const App = () => {
                   name="employmentType"
                   value={userInputs.employmentType || ""}
                   options={lookups.appianLookupsEmploymentStatuses}
-                  onChange={handleChange}
+                  onChange={handleUserInputChangeWithEvent}
                   idKey={lookupTablePrimaryKeys[0]}
                   nameKey="name"
                   returnIdKey={true}
@@ -330,7 +309,7 @@ const App = () => {
                   name="housingStatus"
                   value={userInputs.housingStatus || ""}
                   options={lookups.appianLookupsHousingStatuses}
-                  onChange={handleChange}
+                  onChange={handleUserInputChangeWithEvent}
                   idKey={lookupTablePrimaryKeys[1]}
                   nameKey="name"
                   returnIdKey={true}
@@ -348,7 +327,9 @@ const App = () => {
             <h2>Proof Of Address</h2>
             <FileUpload
               acceptedTypes={["image/jpeg", "image/png", "application/pdf"]}
-              onUpload={handleFileUpload}
+              onUpload={(file) =>
+                handleNestedChange(setUserInputs, "proofOfAddress", file)
+              }
               errorMessage="Invalid file type. Please upload JPEG, PNG, or PDF files."
               fieldName="proofOfAddress"
               instructions={proofOfAddressInstructions}
@@ -357,7 +338,9 @@ const App = () => {
             <h2>Proof Of Income</h2>
             <FileUpload
               acceptedTypes={["image/jpeg", "image/png", "application/pdf"]}
-              onUpload={handleFileUpload}
+              onUpload={(file) =>
+                handleNestedChange(setUserInputs, "proofOfIncome", file)
+              }
               errorMessage="Invalid file type. Please upload JPEG, PNG, or PDF files."
               fieldName="proofOfIncome"
               instructions={proofOfIncomeInstructions}

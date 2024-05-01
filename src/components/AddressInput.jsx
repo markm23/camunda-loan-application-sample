@@ -3,56 +3,25 @@ import DropdownInput from "./DropdownInput.jsx";
 import PostCodeInput from "./PostCodeInput.jsx";
 import { europeanCountries, countryRegions } from "../../data/data.js";
 import "./AddressInput.css";
+import { handleNestedChange, handleNestedChangeWithEvent } from "../functions/state_handler.js";
 
 const AddressInput = ({ value, onChange }) => {
   const [address, setAddress] = useState(value);
-  const [countries, setCountries] = useState([]);
-  const [regions, setRegions] = useState(value.country ? countryRegions[value.country] : []);
-  const [selectedCountry, setSelectedCountry] = useState(null);
-  const [selectedRegion, setSelectedRegion] = useState(null);
+  const [regions, setRegions] = useState(value?.country ? countryRegions[value.country] : []);
 
-  useEffect(() => {
-    setCountries(europeanCountries);
-  }, []);
-
-  const handleRegionChange = (event) => {
-    setSelectedRegion(event.target.value);
-    setAddress({
-      ...address,
-      region: event.target.value, // Update the 'region' here
-    });
-    onChange(address); // Notify the parent
+  const handleAddressChange = (event) => {
+    handleNestedChangeWithEvent(event, setAddress); // Notify the parent
   };
 
   const handleCountryChange = (event) => {
-    const countryCode = event.target.value;
-    setSelectedCountry(countryCode);
-    setRegions(countryRegions[countryCode] || []); // Update regions
-
-    // Update address and notify the parent
-    setAddress({
-      ...address,
-      country: countryCode,
-      region: "", // Reset region when country changes
-    });
-    onChange(address);
+    handleNestedChange(setAddress, "region", "");
+    handleNestedChangeWithEvent(event, setAddress);
+    setRegions(countryRegions[event.target.value] || []); // Update regions
   };
 
-  const handleAddressChange = (event) => {
-    setAddress({
-      ...address,
-      [event.target.name]: event.target.value,
-    });
-    onChange(address); // Notify parent of changes immediately
-  };
-
-  const handlePostcodeChange = (newPostcode) => {
-    setAddress({
-      ...address,
-      postCode: newPostcode,
-    });
-    onChange(address);
-  };
+  useEffect(() => {
+    onChange(address)
+  }, [address])
 
   return (
     <div className="address-form">
@@ -85,7 +54,7 @@ const AddressInput = ({ value, onChange }) => {
           name="postCode"
           label="Post Code"
           value={address.postCode}
-          onChange={handlePostcodeChange}
+          onChange={handleAddressChange}
         />
       </div>
       <div className="input-line">
@@ -104,7 +73,7 @@ const AddressInput = ({ value, onChange }) => {
           name="region"
           value={address.region || ""}
           options={regions}
-          onChange={handleRegionChange}
+          onChange={handleAddressChange}
         />
       </div>
       <div className="input-line">

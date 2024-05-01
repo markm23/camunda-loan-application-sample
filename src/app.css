@@ -160,6 +160,11 @@
   align-items: center; /* Align components vertically */
 }
 
+.input-and-dropdown > label {
+  flex: 0 0 70px; /* Prevent the label from growing or shrinking */
+  margin-right: 10px; /* Add spacing between the label and input */
+}
+
 .input-and-dropdown > DropdownInput {
   /* Target DropdownInput assuming it's using a <select> tag */
   flex: 1; /* Dropdown takes up 1/5th of the space */
