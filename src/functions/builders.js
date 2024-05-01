@@ -27,6 +27,14 @@ export function generateSortCode(region) {
   return `${prefix}-${segment1}-${segment2}`;
 }
 
+export function getFullAddress(data) {
+  return `${data.address.addressLine1}, ${data.address.city}, ${data.address.region}, ${data.address.country}, ${data.address.postCode}`;
+}
+
+export function generateFileName(userInputs, prefix) {
+  return prefix + userInputs.firstName + "_" + userInputs.lastName + "-" + today.toLocaleDateString("en-GB").replace(/\//g, "-") +".pdf";
+}
+
 export function createCustomerData(data, POIName, POIUrl, POAName, POAUrl) {
   const today = new Date();
 
@@ -74,7 +82,7 @@ export function createCustomerData(data, POIName, POIUrl, POAName, POAUrl) {
     return {
       nameOnCard: data.firstName + " " + data.lastName,
       cardNumber: generateCardNumber(),
-      sortCode: generateSortCode((region = data.address.region)),
+      sortCode: generateSortCode(data.address.region),
       isActive: true,
     };
   };
@@ -85,7 +93,7 @@ export function createCustomerData(data, POIName, POIUrl, POAName, POAUrl) {
     firstName: data.firstName,
     lastName: data.lastName,
     dateOfBirth: formatDate(data.dateOfBirth),
-    address: data.addressFull,
+    address: getFullAddress(data),
     fk_employmentTypeID: parseInt(data.employmentType, 10),
     fk_housingStatusID: parseInt(data.housingStatus, 10),
     email: data.emailAddress,

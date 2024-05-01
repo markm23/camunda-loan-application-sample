@@ -23,8 +23,15 @@ import {
   callCamundaWebhook,
 } from "./functions/apis";
 
-import { createCustomerData } from "./functions/builders";
-import { handleNestedChange, handleNestedChangeWithEvent } from "./functions/state_handler";
+import {
+  createCustomerData,
+  generateFileName,
+  getFullAddress,
+} from "./functions/builders";
+import {
+  handleNestedChange,
+  handleNestedChangeWithEvent,
+} from "./functions/state_handler";
 
 const App = () => {
   const formRef = useRef(null);
@@ -51,8 +58,6 @@ const App = () => {
       region: "England",
       postCode: "W2 1BQ",
     },
-    addressFull:
-      "5 Merchant Square, WeWork, London, London, United Kingdom, W2 1BQ",
     proofOfIncome: null,
     proofOfAddress: null,
     loanType: 1,
@@ -61,10 +66,6 @@ const App = () => {
       amount: 10000,
     },
   });
-
-  function getFullAddress() {
-    return `${userInputs.address.addressLine1}, ${userInputs.address.city}, ${userInputs.address.region}, ${userInputs.address.country}, ${userInputs.address.postCode}`;
-  }
 
   //------------------------------------------------------------------------------------------------------------------------------//
   //-------------------------------------------------------EDIT BELOW - 2---------------------------------------------------------//
@@ -111,27 +112,10 @@ const App = () => {
   hundredYearsAgo.setFullYear(today.getFullYear() - 100);
 
   const handleSubmit = async () => {
-    handleNestedChange(setUserInputs, "addressFull", getFullAddress());
     if (formRef.current.checkValidity()) {
       setIsLoading(true);
-      const POAName =
-        "Proof_of_Address-" +
-        userInputs.firstName +
-        "_" +
-        userInputs.lastName +
-        "-" +
-        today.toLocaleDateString("en-GB").replace(/\//g, "-") +
-        ".pdf";
-
-      const POIName =
-        "Proof_of_Income-" +
-        userInputs.firstName +
-        "_" +
-        userInputs.lastName +
-        "-" +
-        today.toLocaleDateString("en-GB").replace(/\//g, "-") +
-        ".pdf";
-
+      const POAName = generateFileName(userInputs, "Proof_of_Address-");
+      const POIName = generateFileName(userInputs, "Proof_of_Income-");
       const POA_Result = await uploadFileToS3(
         userInputs.proofOfAddress,
         POAName
@@ -158,8 +142,9 @@ const App = () => {
       setIsLoading(false);
       setFormSubmitted(true);
     } else {
-      console.log("fill in required fields");
+      console.log("Fill in required fields");
       console.log(userInputs);
+      console.log(getFullAddress(userInputs));
       formRef.current.reportValidity();
     }
   };
