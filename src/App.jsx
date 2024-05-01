@@ -63,7 +63,7 @@ const App = () => {
     loanType: 1,
     loanAmount: {
       currency: "GBP",
-      amount: 10000,
+      amount: 250,
     },
   });
 
