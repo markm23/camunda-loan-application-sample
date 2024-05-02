@@ -110,17 +110,7 @@ export async function callCamundaWebhook(data) {
   // return null;
   
   try {
-    const response = await fetch(
-      `https://f9r92naghh.execute-api.eu-west-2.amazonaws.com/v1/arashLoanProcessing`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      }
-    ).catch(error => {
-      throw new Error(error);
-    });
+    const response = "your fetch statement here";
     const result = await response.text();
     console.log(result);
     return result; // Return the result for further use
