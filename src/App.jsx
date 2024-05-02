@@ -111,7 +111,8 @@ const App = () => {
   const hundredYearsAgo = new Date();
   hundredYearsAgo.setFullYear(today.getFullYear() - 100);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     if (formRef.current.checkValidity()) {
       setIsLoading(true);
       const POAName = generateFileName(userInputs, "Proof_of_Address-");
