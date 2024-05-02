@@ -83,6 +83,10 @@ const App = () => {
         lookupTableNames[1],
         lookupTablePrimaryKeys[1]
       );
+      const loanTypesData = await getAppianLookupValues(
+        lookupTableNames[1],
+        lookupTablePrimaryKeys[1]
+      );
       handleNestedChange(
         setLookups,
         "appianLookupsEmploymentStatuses",
@@ -92,6 +96,11 @@ const App = () => {
         setLookups,
         "appianLookupsHousingStatuses",
         housingStatusesData
+      );
+      handleNestedChange(
+        setLookups,
+        "appianLookupsLoanTypes",
+        loanTypesData
       );
     };
     fetchData();
@@ -238,8 +247,8 @@ const App = () => {
                   value={userInputs.loanType || ""}
                   options={lookups.appianLookupsLoanTypes}
                   onChange={handleUserInputChangeWithEvent}
-                  idKey={lookupTablePrimaryKeys[2]}
-                  nameKey="name"
+                  idKey="key"
+                  nameKey="value"
                   returnIdKey={true}
                 />
               </div>
@@ -284,8 +293,8 @@ const App = () => {
                   value={userInputs.employmentType || ""}
                   options={lookups.appianLookupsEmploymentStatuses}
                   onChange={handleUserInputChangeWithEvent}
-                  idKey={lookupTablePrimaryKeys[0]}
-                  nameKey="name"
+                  idKey="key"
+                  nameKey="value"
                   returnIdKey={true}
                 />
               </div>
@@ -296,8 +305,8 @@ const App = () => {
                   value={userInputs.housingStatus || ""}
                   options={lookups.appianLookupsHousingStatuses}
                   onChange={handleUserInputChangeWithEvent}
-                  idKey={lookupTablePrimaryKeys[1]}
-                  nameKey="name"
+                  idKey="key"
+                  nameKey="value"
                   returnIdKey={true}
                 />
               </div>

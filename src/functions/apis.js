@@ -45,11 +45,11 @@ export async function uploadFileToS3(file, filename) {
 * @return {Object[]} Key-value pairs for the retrieved data, key is the primary key, and value is the name
 */
 export async function getAppianLookupValues(table, primaryKeyField = "id") {
-  return getHardCodedLookupValues(table)
-  /**
+  // return getHardCodedLookupValues(table)
+  
   try {
     // Call the query API and extract the JSON
-    const url = '<your proxy api url>'
+    const url = 'https://te4beoingl.execute-api.eu-west-2.amazonaws.com/v1/getAppianLookups'
     const response = await fetch(`${url}?table=${table}`, {
       method: "GET"
     }).catch(error => {
@@ -74,7 +74,6 @@ export async function getAppianLookupValues(table, primaryKeyField = "id") {
   } catch (error) {
     console.error("Error retrieving data:", error.message);
   }
-  */
 }
 //------------------------------------------------------------------------------------------------------------------------------//
 //-------------------------------------------------------EDIT ABOVE - 1---------------------------------------------------------//
