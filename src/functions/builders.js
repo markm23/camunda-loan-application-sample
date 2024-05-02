@@ -32,7 +32,7 @@ export function getFullAddress(data) {
 }
 
 export function generateFileName(userInputs, prefix) {
-  return prefix + userInputs.firstName + "_" + userInputs.lastName + "-" + today.toLocaleDateString("en-GB").replace(/\//g, "-") +".pdf";
+  return prefix + userInputs.firstName + "_" + userInputs.lastName + "-" + (new Date()).toLocaleDateString("en-GB").replace(/\//g, "-") +".pdf";
 }
 
 export function createCustomerData(data, POIName, POIUrl, POAName, POAUrl) {
