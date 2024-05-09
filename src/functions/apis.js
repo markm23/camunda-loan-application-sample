@@ -110,7 +110,7 @@ export async function callCamundaWebhook(data) {
   
   try {
     const response = await fetch(
-      `https://f9r92naghh.execute-api.eu-west-2.amazonaws.com/v1/arashLoanProcessing`, {
+      `https://diiejrgqdh.execute-api.eu-west-2.amazonaws.com/v1/startLoanProcessing`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
