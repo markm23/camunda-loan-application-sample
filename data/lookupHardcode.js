@@ -1,25 +1,25 @@
 export const employmentTypeLookup = [
-  { employmentTypeID: 1, name: "Full-Time (HC)" },
-  { employmentTypeID: 2, name: "Part-Time (HC)" },
-  { employmentTypeID: 3, name: "Freelance (HC)" },
-  { employmentTypeID: 4, name: "Self-Employed (HC)" },
-  { employmentTypeID: 5, name: "Temporary (HC)" },
-  { employmentTypeID: 6, name: "Student (HC)" },
+  { key: 1, value: "Full-Time (HC)" },
+  { key: 2, value: "Part-Time (HC)" },
+  { key: 3, value: "Freelance (HC)" },
+  { key: 4, value: "Self-Employed (HC)" },
+  { key: 5, value: "Temporary (HC)" },
+  { key: 6, value: "Student (HC)" },
 ];
 export const housingStatusLookup = [
-  { housingStatusID: 1, name: "Owned - Mortgage Paid (HC)" },
-  { housingStatusID: 2, name: "Owned - Mortgage Outstanding (HC)" },
-  { housingStatusID: 3, name: "Private Rental (HC)" },
-  { housingStatusID: 4, name: "Public Housing (HC)" },
-  { housingStatusID: 5, name: "Student Accomodation (HC)" },
-  { housingStatusID: 6, name: "Living With Family (HC)" },
-  { housingStatusID: 7, name: "Unhoused (HC)" },
+  { key: 1, value: "Owned - Mortgage Paid (HC)" },
+  { key: 2, value: "Owned - Mortgage Outstanding (HC)" },
+  { key: 3, value: "Private Rental (HC)" },
+  { key: 4, value: "Public Housing (HC)" },
+  { key: 5, value: "Student Accomodation (HC)" },
+  { key: 6, value: "Living With Family (HC)" },
+  { key: 7, value: "Unhoused (HC)" },
 ];
 
 export const loanTypeLookup = [
-  { loanTypeID: 1, name: "Personal (HC)" },
-  { loanTypeID: 2, name: "Mortgage (HC)" },
-  { loanTypeID: 3, name: "Automotive (HC)" },
+  { key: 1, value: "Personal (HC)" },
+  { key: 2, value: "Mortgage (HC)" },
+  { key: 3, value: "Automotive (HC)" },
 ];
 
 /**
@@ -30,6 +30,7 @@ export const loanTypeLookup = [
  * 2 - loan type
  */
 export const lookupTableNames = ["employment", "housing", "loan type"]
+
 /**
  * Primary field names for some tables, matching with lookupTableNames
  * Indexes

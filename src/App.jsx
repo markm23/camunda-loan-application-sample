@@ -68,14 +68,14 @@ const App = () => {
   });
 
   //------------------------------------------------------------------------------------------------------------------------------//
-  //-------------------------------------------------------EDIT BELOW - 2---------------------------------------------------------//
+  //-------------------------------------------------------EDIT BELOW - 1---------------------------------------------------------//
   //------------------------------------------------------------------------------------------------------------------------------//
   //Add code to get the lookups for loan type and save to state-------------------------------------------------------------------//
   //Hint: use existing code as reference, and hover over some of the variable for descriptions------------------------------------//
   //------------------------------------------------------------------------------------------------------------------------------//
   useEffect(() => {
     const fetchData = async () => {
-      const employmentStatusesData = await getAppianLookupValues(
+      const employmentTypesData = await getAppianLookupValues(
         lookupTableNames[0],
         lookupTablePrimaryKeys[0]
       );
@@ -86,7 +86,7 @@ const App = () => {
       handleNestedChange(
         setLookups,
         "appianLookupsEmploymentStatuses",
-        employmentStatusesData
+        employmentTypesData
       );
       handleNestedChange(
         setLookups,
@@ -97,7 +97,7 @@ const App = () => {
     fetchData();
   }, []); // Call on mount
   //------------------------------------------------------------------------------------------------------------------------------//
-  //-------------------------------------------------------EDIT ABOVE - 2---------------------------------------------------------//
+  //-------------------------------------------------------EDIT ABOVE - 1---------------------------------------------------------//
   //------------------------------------------------------------------------------------------------------------------------------//
 
   // Handle form changes (generic example)
@@ -223,14 +223,6 @@ const App = () => {
                 value={userInputs.emailAddress}
                 onChange={handleUserInputChangeWithEvent}
               />
-              {/* 
-//------------------------------------------------------------------------------------------------------------------------------//
-//-------------------------------------------------------EDIT BELOW - 3---------------------------------------------------------//
-//------------------------------------------------------------------------------------------------------------------------------// 
-//Update JSX code to correctly use the retrieved values-------------------------------------------------------------------------//
-//Hint: check the structures of the retrieved hard-coded values versus the retrieved real values--------------------------------//
-//------------------------------------------------------------------------------------------------------------------------------//
-*/}
               <div className="input-line">
                 <DropdownInput
                   label="Loan Type"
@@ -238,17 +230,11 @@ const App = () => {
                   value={userInputs.loanType || ""}
                   options={lookups.appianLookupsLoanTypes}
                   onChange={handleUserInputChangeWithEvent}
-                  idKey={lookupTablePrimaryKeys[2]}
-                  nameKey="name"
+                  idKey="key"
+                  nameKey="value"
                   returnIdKey={true}
                 />
               </div>
-
-              {/* 
-//------------------------------------------------------------------------------------------------------------------------------//
-//-------------------------------------------------------EDIT ABOVE - 3---------------------------------------------------------//
-//------------------------------------------------------------------------------------------------------------------------------// 
-*/}
               <div className="input-line">
                 <CurrencyInput
                   name="loanAmount"
@@ -269,14 +255,6 @@ const App = () => {
                   handleNestedChange(setUserInputs, "address", address)
                 }
               />
-              {/* 
-//------------------------------------------------------------------------------------------------------------------------------//
-//-------------------------------------------------------EDIT BELOW - 4---------------------------------------------------------//
-//------------------------------------------------------------------------------------------------------------------------------// 
-//Update JSX code to correctly use the retrieved values-------------------------------------------------------------------------//
-//Hint: check the structures of the retrieved hard-coded values versus the retrieved real values--------------------------------//
-//------------------------------------------------------------------------------------------------------------------------------//
-*/}
               <div className="input-line">
                 <DropdownInput
                   label="Employment Type"
@@ -284,8 +262,8 @@ const App = () => {
                   value={userInputs.employmentType || ""}
                   options={lookups.appianLookupsEmploymentStatuses}
                   onChange={handleUserInputChangeWithEvent}
-                  idKey={lookupTablePrimaryKeys[0]}
-                  nameKey="name"
+                  idKey="key"
+                  nameKey="value"
                   returnIdKey={true}
                 />
               </div>
@@ -296,16 +274,11 @@ const App = () => {
                   value={userInputs.housingStatus || ""}
                   options={lookups.appianLookupsHousingStatuses}
                   onChange={handleUserInputChangeWithEvent}
-                  idKey={lookupTablePrimaryKeys[1]}
-                  nameKey="name"
+                  idKey="key"
+                  nameKey="value"
                   returnIdKey={true}
                 />
               </div>
-              {/* 
-//------------------------------------------------------------------------------------------------------------------------------//
-//-------------------------------------------------------EDIT ABOVE - 4---------------------------------------------------------//
-//------------------------------------------------------------------------------------------------------------------------------// 
-*/}
             </div>
           </div>
           <div>
