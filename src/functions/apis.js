@@ -103,14 +103,21 @@ function getHardCodedLookupValues(tableName) {
 //------------------------------------------------------------------------------------------------------------------------------//
 //-------------------------------------------------------EDIT BELOW - 5---------------------------------------------------------//
 //------------------------------------------------------------------------------------------------------------------------------//
-//Replace null return with real fetch request-----------------------------------------------------------------------------------//
 //Use your created API URL------------------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------------------------------------------//
+//------------------------------------------------------------------------------------------------------------------------------//
 export async function callCamundaWebhook(data) {
-  // return null;
-  
   try {
-    const response = "your fetch statement here";
+    const response = await fetch("<your aws api url>", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      }
+    ).catch(error => {
+      throw new Error(error);
+    });
     const result = await response.text();
     console.log(result);
     return result; // Return the result for further use
